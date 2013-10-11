@@ -35,6 +35,9 @@
 (defn list-methods []
 	(api-req "system.listMethods" []))
 
+(defn get-method-help [method]
+	(api-req "system.methodHelp" [method]))
+
 (defn get-ticket [ticketno]
 	(api-req "ticket.get" [ticketno]))
 
@@ -42,6 +45,6 @@
 	(api-req "ticket.getActions" [ticketno]))
 
 (defn -main []
-	(println (list-methods))
+	(println (get-method-help "system.getAPIVersion"))
 	)
 

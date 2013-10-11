@@ -8,3 +8,5 @@ reload
 (get-ticket 60913)
 (reload)
 (get-ticket 60913)
+(get-method-help "system.getAPIVersion")
+(get-ticket 60913)
