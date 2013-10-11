@@ -6,21 +6,42 @@
 
 (def user-creds ["mark" "O3xVfe14"])
 
-(defn api-req [method params]
-	(let [body (json/write-str {:method method :params params})]
+(defn parse-result [body]
+	(let [err (get body "error") result (get body "result")]
+	(cond
+		err err
+		:else result)))
 
-	(println body)
+(defn parse-body-from-response [response]
+	(let [body (response :body) ]
 
-	(client/post url
-  {:basic-auth user-creds
-   :body body
-   :content-type :json
-   :socket-timeout 1000  ;; in milliseconds
-   :conn-timeout 1000    ;; in milliseconds
-   :accept :json})
-
+		(json/read-str body)
 	))
 
+(defn parse-response [response]
+	(parse-result (parse-body-from-response response)))
+
+(defn api-req [method params]
+	(let [req-body (json/write-str {:method method :params params}) ]
+
+	(parse-response (client/post url
+	  {:basic-auth user-creds
+	   :body req-body
+	   :content-type :json
+	   :socket-timeout 1000  ;; in milliseconds
+	   :conn-timeout 1000    ;; in milliseconds
+	   :accept :json} ))))
+
+(defn list-methods []
+	(api-req "system.listMethods" []))
+
+(defn get-ticket [ticketno]
+	(api-req "ticket.get" [ticketno]))
+
+(defn get-ticket-actions [ticketno]
+	(api-req "ticket.getActions" [ticketno]))
+
 (defn -main []
-	(println (api-req "ticket.get" [60988])))
+	(println (list-methods))
+	)
 

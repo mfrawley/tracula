@@ -1,1 +1,10 @@
 (require '[clj-http.client :as client])
+(list-methods)
+(get-ticket-actions)
+reload
+(get-ticket-actions)
+(get-ticket-actions 60998)
+(get-ticket-actions 60913)
+(get-ticket 60913)
+(reload)
+(get-ticket 60913)
