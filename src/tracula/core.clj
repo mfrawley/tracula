@@ -6,6 +6,9 @@
 
 (def user-creds ["mark" "O3xVfe14"])
 
+;make things easier for testing
+(def example-ticket 60988)
+
 (defn parse-result [body]
 	(let [err (get body "error") result (get body "result")]
 	(cond
@@ -14,7 +17,6 @@
 
 (defn parse-body-from-response [response]
 	(let [body (response :body) ]
-
 		(json/read-str body)
 	))
 
@@ -39,12 +41,17 @@
 	(api-req "system.methodHelp" [method]))
 
 (defn get-ticket [ticketno]
-	(api-req "ticket.get" [ticketno]))
+	(let [[id, time_created, time_changed, attributes] (api-req "ticket.get" [ticketno])]
+	{:id id :time_created time_created :time_changed time_changed :attributes attributes}))
+
+(defn update-ticket [ticketno commentstr attrs notify]
+	(api-req "ticket.update" [ticketno])
+	)
 
 (defn get-ticket-actions [ticketno]
 	(api-req "ticket.getActions" [ticketno]))
 
 (defn -main []
-	(println (get-method-help "system.getAPIVersion"))
+	(println (get-ticket example-ticket))
 	)
 
