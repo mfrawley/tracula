@@ -59,6 +59,10 @@
 	(let [notify false action "done" attrs {:_ts (get-current-timestamp-str) :action "done"}]
 	(api-req "ticket.update" [ticketno commentstr attrs])))
 
+(defn create-ticket [summary description attributes]
+	(let [notify false]
+	(api-req "ticket.create" [summary description attributes notify])))
+
 (defn get-current-timestamp-str []
 	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now))
 	)
