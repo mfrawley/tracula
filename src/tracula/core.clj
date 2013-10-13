@@ -1,9 +1,10 @@
 (ns tracula.core)
 (require '[clj-http.client :as client])
 (require '[clojure.data.json :as json])
+(require '[clj-time.core :as cltime])
+(require '[clj-time.format :as tformat])
 
 (def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
-
 (def user-creds ["mark" "O3xVfe14"])
 
 ;make things easier for testing
@@ -40,16 +41,29 @@
 (defn get-method-help [method]
 	(api-req "system.methodHelp" [method]))
 
+(defn get-ticket-actions [ticketno]
+	(api-req "ticket.getActions" [ticketno]))
+
+(defn hashify-changelog-entry [changelog-arr]
+	(let [[dtime, author, field, oldvalue, newvalue, permanent ] changelog-arr]
+	{:time dtime :author author :field field :oldvalue oldvalue :newvalue newvalue :permanent permanent}))
+
+(defn get-ticket-changelog [ticketno]
+	 (map hashify-changelog-entry (api-req "ticket.changeLog" [ticketno])))
+
 (defn get-ticket [ticketno]
 	(let [[id, time_created, time_changed, attributes] (api-req "ticket.get" [ticketno])]
 	{:id id :time_created time_created :time_changed time_changed :attributes attributes}))
 
-(defn update-ticket [ticketno commentstr attrs notify]
-	(api-req "ticket.update" [ticketno])
+(defn update-ticket [ticketno commentstr action notify]
+	(let [notify false action "done" attrs {:_ts (get-current-timestamp-str) :action "done"}]
+	(api-req "ticket.update" [ticketno commentstr attrs])))
+
+(defn get-current-timestamp-str []
+	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now))
 	)
 
-(defn get-ticket-actions [ticketno]
-	(api-req "ticket.getActions" [ticketno]))
+
 
 (defn -main []
 	(println (get-ticket example-ticket))
