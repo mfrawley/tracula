@@ -26,6 +26,7 @@
 
 (defn api-req [method params]
 	(let [req-body (json/write-str {:method method :params params}) ]
+	(println req-body)
 
 	(parse-response (client/post url
 	  {:basic-auth user-creds
@@ -34,6 +35,12 @@
 	   :socket-timeout 1000  ;; in milliseconds
 	   :conn-timeout 1000    ;; in milliseconds
 	   :accept :json} ))))
+
+(defn get-current-timestamp-str []
+	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now))
+	)
+(defn format-ts-for-json [datetime-str]
+	{"__jsonclass__" ["datetime" datetime-str] })
 
 (defn list-methods []
 	(api-req "system.listMethods" []))
@@ -63,11 +70,12 @@
 	(let [notify false]
 	(api-req "ticket.create" [summary description attributes notify])))
 
-(defn get-current-timestamp-str []
-	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now))
-	)
+(defn get-recent []
+	(api-req "ticket.getRecentChanges" [(format-ts-for-json (get-current-timestamp-str))]))
 
-
+; too new
+; (defn query-tickets [query]
+; 	(api-req " ticket.query" ["status!=closed"]))
 
 (defn -main []
 	(println (get-ticket example-ticket))
