@@ -91,6 +91,8 @@
   (compcore/GET "/methods" [] (jsonify (list-methods)))
   (compcore/GET "/recent" [] (jsonify (get-recent)))
   (compcore/GET "/help/:method" [method] (get-method-help method))
+  (compcore/GET "/tickets/:id" [id] (get-ticket id))
+  ; (compcore/PUT "/tickets" [] (get-ticket id))
   )
 
 (defn -main []
