@@ -67,8 +67,9 @@
 	 (map hashify-changelog-entry (api-req "ticket.changeLog" [ticketno])))
 
 (defn get-ticket [ticketno]
-	(let [[id, time_created, time_changed, attributes] (api-req "ticket.get" [ticketno])]
-	{:id id :time_created time_created :time_changed time_changed :attributes attributes}))
+	(let [res (api-req "ticket.get" [ticketno])]
+	 	(if (res 0) {:id (res 0) :time_created (res 1) :time_changed (res 2) :attributes (res 3)}
+			{:error "Ticket not found."})))
 
 (defn update-ticket [ticketno commentstr action notify]
 	(let [notify false action "done" attrs {:_ts (get-current-timestamp-str) :action "done"}]
@@ -77,6 +78,9 @@
 (defn create-ticket [summary description]
 	(let [notify false attributes {}]
 	(api-req "ticket.create" [summary description attributes notify])))
+
+(defn delete-ticket [ticketno]
+	(api-req "ticket.delete" [ticketno]))
 
 (defn get-recent []
 	(api-req "ticket.getRecentChanges" [(format-ts-for-json (get-current-timestamp-str))]))
@@ -94,15 +98,23 @@
 	(jsonify params))
 
 (compcore/defroutes approutes
+	;;;;;;;;;;;;;;;;;;;;;;;;
+	;todo, put API docs here
   (compcore/GET "/" [] "<h1>Hello World</h1>")
+  ;;;;;;;;;;;;;;;;;;;;;;
+  ; help/utility methods
+  (compcore/POST "/echo" {params :params} (rest-echo params))
   (compcore/GET "/methods" [] (jsonify (list-methods)))
   (compcore/GET "/recent" [] (jsonify (get-recent)))
   (compcore/GET "/help/:method" [method] (get-method-help method))
-  (compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
+  ;;;;;;;;;;;;;;
+  ;ticket routes
   (compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
+  (compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
 
   (compcore/POST "/tickets" {params :params} (rest-create-ticket params))
-  (compcore/POST "/echo" {params :params} (rest-echo params))
+  (compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
+
   ; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
   )
 

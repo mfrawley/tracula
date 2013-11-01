@@ -110,3 +110,5 @@ get-current-timestamp-str
 (get-recent)
 (get-ticket 6896)
 (get-ticket-actions 62529)
+(empty? [])
+(seq [])

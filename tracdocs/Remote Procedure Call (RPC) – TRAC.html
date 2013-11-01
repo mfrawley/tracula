@@ -1,0 +1,919 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0043)https://svn.jimdo-server.com/trac/login/rpc -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+      Remote Procedure Call (RPC) – TRAC
+    </title>
+        <link rel="search" href="https://svn.jimdo-server.com/trac/search">
+        <link rel="help" href="https://svn.jimdo-server.com/trac/wiki/TracGuide">
+        <link rel="start" href="https://svn.jimdo-server.com/trac/wiki">
+        <link rel="stylesheet" href="./Remote Procedure Call (RPC) – TRAC_files/trac.css" type="text/css"><link rel="stylesheet" href="./Remote Procedure Call (RPC) – TRAC_files/wiki.css" type="text/css"><link rel="stylesheet" href="./Remote Procedure Call (RPC) – TRAC_files/rpc.css" type="text/css">
+        <link rel="shortcut icon" href="https://svn.jimdo-server.com/trac/chrome/common/trac.ico" type="image/x-icon">
+        <link rel="icon" href="https://svn.jimdo-server.com/trac/chrome/common/trac.ico" type="image/x-icon">
+      <link type="application/opensearchdescription+xml" rel="search" href="https://svn.jimdo-server.com/trac/search/opensearch" title="Search TRAC">
+    <script type="text/javascript" src="./Remote Procedure Call (RPC) – TRAC_files/jquery.js"></script><script type="text/javascript" src="./Remote Procedure Call (RPC) – TRAC_files/trac.js"></script><script type="text/javascript" src="./Remote Procedure Call (RPC) – TRAC_files/search.js"></script><script type="text/javascript" src="./Remote Procedure Call (RPC) – TRAC_files/rpc.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/trac/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="https://svn.jimdo-server.com/trac"><img src="./Remote Procedure Call (RPC) – TRAC_files/logo.png" alt="" width="200"></a>
+      </div>
+      <form id="search" action="https://svn.jimdo-server.com/trac/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="">
+          <input type="submit" value="Search">
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="https://svn.jimdo-server.com/trac/wiki/TracGuide">Help/Guide</a></li><li><a href="https://svn.jimdo-server.com/trac/about">About Trac</a></li><li><a href="https://svn.jimdo-server.com/trac/rpc">API</a></li><li><a href="https://svn.jimdo-server.com/trac/logout">Logout</a></li><li>logged in as mark</li><li class="last"><a href="https://svn.jimdo-server.com/trac/prefs">Preferences</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="https://svn.jimdo-server.com/trac/wiki">Wiki</a></li><li><a href="https://svn.jimdo-server.com/trac/timeline">Timeline</a></li><li><a href="https://svn.jimdo-server.com/trac/roadmap">Roadmap</a></li><li><a href="https://svn.jimdo-server.com/trac/report">View Tickets</a></li><li><a href="https://svn.jimdo-server.com/trac/newticket">New Ticket</a></li><li><a href="https://svn.jimdo-server.com/trac/search">Search</a></li><li class="last"><a href="https://svn.jimdo-server.com/trac/admin" title="Administration">Admin</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+        <hr>
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable"><div id="rpc-toc" class="wiki-toc" style="display: block;"><h4>Contents</h4><ul><li style="padding-top: 0.5em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#Protocols" title="Protocol reference:">Protocols</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#JSON-RPC" title="JSON-RPC">JSON-RPC</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#XML-RPC" title="XML-RPC">XML-RPC</a></li><li style="padding-top: 0.5em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#Methods" title="RPC exported functions">Methods</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.search" title="search - Search Trac.">search</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.system" title="system - Core of the RPC system.">system</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket" title="ticket - An interface to Trac&#39;s ticketing system.">ticket</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.component" title="ticket.component - Interface to ticket component objects.">ticket.component</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.milestone" title="ticket.milestone - Interface to ticket milestone objects.">ticket.milestone</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.priority" title="ticket.priority - Interface to ticket priority.">ticket.priority</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.resolution" title="ticket.resolution - Interface to ticket resolution.">ticket.resolution</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.severity" title="ticket.severity - Interface to ticket severity.">ticket.severity</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.status" title="ticket.status - An interface to Trac ticket status objects.
+Note: Status is defined by workflow, and all methods except getAll()
+are deprecated no-op methods - these will be removed later.">ticket.status</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.type" title="ticket.type - Interface to ticket type.">ticket.type</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.version" title="ticket.version - Interface to ticket version objects.">ticket.version</a></li><li style="padding-left: 1.2em;"><a href="https://svn.jimdo-server.com/trac/login/rpc#rpc.wiki" title="wiki - Superset of the
+ WikiRPC API.">wiki</a></li></ul></div>
+        <h1>Remote Procedure Call (RPC)</h1>
+        <p><strong>Installed API version :</strong> 1.1.2-r10706 </p>
+        <h2 id="Protocols">Protocol reference:<a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#Protocols" title="Link here"> ¶</a></h2>
+        <p>Below you will find a detailed description of all the RPC
+          protocols installed in this environment. This includes
+          supported content types as well as target URLs for
+          anonymous and authenticated access. Use this
+          information to interact with this environment from
+          a remote location.
+        </p>
+        <p>Libraries for remote procedure calls and parsing exists
+          for most major languages and platforms - use a tested, standard library
+          for consistent results.</p>
+        <dl>
+          <h3 id="JSON-RPC">JSON-RPC<a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#JSON-RPC" title="Link here"> ¶</a></h3>
+          <dd>
+            <p>For JSON-RPC protocol, use any one of:</p>
+            <ul>
+              <li>
+                <tt>{'Content-Type': 'application/json'}</tt> header with request to:
+                  <ul>
+                    <li>
+                      <a href="https://svn.jimdo-server.com/trac/rpc">https://svn.jimdo-server.com/trac/rpc</a>
+                      for anonymous access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/jsonrpc">https://svn.jimdo-server.com/trac/jsonrpc</a>
+                      for anonymous access
+                    </li>
+                    <li>
+                      <a href="./Remote Procedure Call (RPC) – TRAC_files/Remote Procedure Call (RPC) – TRAC.html">https://svn.jimdo-server.com/trac/login/rpc</a>
+                      for authenticated access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/login/jsonrpc">https://svn.jimdo-server.com/trac/login/jsonrpc</a>
+                      for authenticated access
+                    </li>
+                  </ul>
+              </li>
+            </ul>
+          <div>
+            <blockquote>
+<p>
+Example <tt>POST</tt> request using <tt>curl</tt> with <tt>Content-Type</tt> header
+and body:
+</p>
+<pre class="wiki">    user: ~ &gt; cat body.json
+    {"params": ["WikiStart"], "method": "wiki.getPage", "id": 123}
+    user: ~ &gt; curl -H "Content-Type: application/json" --data @body.json https://svn.jimdo-server.com/trac/rpc
+    {"id": 123, "error": null, "result": "= Welcome to....
+</pre></blockquote>
+<blockquote>
+<p>
+Implementation details:
+</p>
+</blockquote>
+<ul><li>JSON-RPC has no formalized type system, so a class-hint system is used
+for input and output of non-standard types:
+<ul><li><tt>{"__jsonclass__": ["datetime", "YYYY-MM-DDTHH:MM:SS"]} =&gt; DateTime (UTC)</tt>
+</li><li><tt>{"__jsonclass__": ["binary", "&lt;base64-encoded&gt;"]} =&gt; Binary</tt>
+</li></ul></li><li><tt>"id"</tt> is optional, and any marker value received with a
+request is returned with the response.
+</li></ul><p>
+</p>
+          </div>
+          </dd>
+        </dl><dl>
+          <h3 id="XML-RPC">XML-RPC<a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#XML-RPC" title="Link here"> ¶</a></h3>
+          <dd>
+            <p>For XML-RPC protocol, use any one of:</p>
+            <ul>
+              <li>
+                <tt>{'Content-Type': 'application/xml'}</tt> header with request to:
+                  <ul>
+                    <li>
+                      <a href="https://svn.jimdo-server.com/trac/rpc">https://svn.jimdo-server.com/trac/rpc</a>
+                      for anonymous access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/xmlrpc">https://svn.jimdo-server.com/trac/xmlrpc</a>
+                      for anonymous access
+                    </li>
+                    <li>
+                      <a href="./Remote Procedure Call (RPC) – TRAC_files/Remote Procedure Call (RPC) – TRAC.html">https://svn.jimdo-server.com/trac/login/rpc</a>
+                      for authenticated access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/login/xmlrpc">https://svn.jimdo-server.com/trac/login/xmlrpc</a>
+                      for authenticated access
+                    </li>
+                  </ul>
+              </li><li>
+                <tt>{'Content-Type': 'text/xml'}</tt> header with request to:
+                  <ul>
+                    <li>
+                      <a href="https://svn.jimdo-server.com/trac/rpc">https://svn.jimdo-server.com/trac/rpc</a>
+                      for anonymous access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/xmlrpc">https://svn.jimdo-server.com/trac/xmlrpc</a>
+                      for anonymous access
+                    </li>
+                    <li>
+                      <a href="./Remote Procedure Call (RPC) – TRAC_files/Remote Procedure Call (RPC) – TRAC.html">https://svn.jimdo-server.com/trac/login/rpc</a>
+                      for authenticated access
+                    </li><li>
+                      <a href="https://svn.jimdo-server.com/trac/login/xmlrpc">https://svn.jimdo-server.com/trac/login/xmlrpc</a>
+                      for authenticated access
+                    </li>
+                  </ul>
+              </li>
+            </ul>
+          <div>
+            <p>
+There should be XML-RPC client implementations available for all
+popular programming languages.
+Example call using <tt>curl</tt>:
+</p>
+<pre class="wiki">user: ~ &gt; cat body.xml
+&lt;?xml version="1.0"?&gt;
+&lt;methodCall&gt;
+&lt;methodName&gt;wiki.getPage&lt;/methodName&gt;
+&lt;params&gt;
+&lt;param&gt;&lt;string&gt;WikiStart&lt;/string&gt;&lt;/param&gt;
+&lt;/params&gt;
+&lt;/methodCall&gt;
+user: ~ &gt; curl -H "Content-Type: application/xml" --data @body.xml https://svn.jimdo-server.com/trac/rpc
+&lt;?xml version='1.0'?&gt;
+&lt;methodResponse&gt;
+&lt;params&gt;
+&lt;param&gt;
+&lt;value&gt;&lt;string&gt;= Welcome to....
+</pre><p>
+The following snippet illustrates how to perform authenticated calls in Python.
+</p>
+<pre class="wiki">&gt;&gt;&gt; from xmlrpclib import ServerProxy
+&gt;&gt;&gt; p = ServerProxy('https://mark:your_password@svn.jimdo-server.com/trac/login/rpc')
+&gt;&gt;&gt; p.system.getAPIVersion()
+[1, 1, 2-r10706]
+</pre>
+          </div>
+          </dd>
+        </dl>
+        <h2 id="Methods">RPC exported functions<a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#Methods" title="Link here"> ¶</a></h2>
+        <div id="searchable">
+          <dl>
+            <h3 id="rpc.search">
+              search - Search Trac.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.search" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array search.getSearchFilters()</td>
+                    <td>Retrieve a list of search filters with each element in the form
+(name, description).</td>
+                    <td>SEARCH_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array search.performSearch(string query, array filters=None)</td>
+                    <td>Perform a search using the given filters. Defaults to all if not
+ provided. Results are returned as a list of tuples in the form
+(href, title, date, author, excerpt).</td>
+                    <td>SEARCH_VIEW</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.system">
+              system - Core of the RPC system.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.system" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array system.multicall(array signatures)</td>
+                    <td>Takes an array of RPC calls encoded as structs of the form (in
+a Pythonish notation here): <tt>{'methodName': string, 'params': array}</tt>.
+For JSON-RPC multicall, signatures is an array of regular method call
+structs, and result is an array of return structures.</td>
+                    <td>XML_RPC</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array system.listMethods()</td>
+                    <td>This method returns a list of strings, one for each (non-system)
+method supported by the RPC server.</td>
+                    <td>XML_RPC</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">string system.methodHelp(string method)</td>
+                    <td>This method takes one parameter, the name of a method implemented
+by the RPC server. It returns a documentation string describing the
+use of that method. If no such string is available, an empty string is
+returned. The documentation string may contain HTML markup.</td>
+                    <td>XML_RPC</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array system.methodSignature(string method)</td>
+                    <td>This method takes one parameter, the name of a method implemented
+by the RPC server.
+It returns an array of possible signatures for this method. A signature
+is an array of types. The first of these types is the return type of
+the method, the rest are parameters.</td>
+                    <td>XML_RPC</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array system.getAPIVersion()</td>
+                    <td>Returns a list with three elements. First element is the
+epoch (0=Trac 0.10, 1=Trac 0.11 or higher). Second element is the major
+version number, third is the minor. Changes to the major version
+indicate API breaking changes, while minor version changes are simple
+additions, bug fixes, etc.</td>
+                    <td>XML_RPC</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket">
+              ticket - An interface to Trac's ticketing system.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.query(string qstr="status!=closed")</td>
+                    <td>Perform a ticket query, returning a list of ticket ID's.
+All queries will use stored settings for maximum number of results per
+page and paging options. Use <tt>max=n</tt> to define number of results to
+receive, and use <tt>page=n</tt> to page through larger result sets. Using
+<tt>max=0</tt> will turn off paging and return all results.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.getRecentChanges(dateTime.iso8601 since)</td>
+                    <td>Returns a list of IDs of tickets that have changed since timestamp.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.getAvailableActions(int id)</td>
+                    <td>Deprecated - will be removed. Replaced by <tt>getActions()</tt>.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.getActions(int id)</td>
+                    <td>Returns the actions that can be performed on the ticket as a list of
+<tt>[action, label, hints, [input_fields]]</tt> elements, where <tt>input_fields</tt> is
+a list of <tt>[name, value, [options]]</tt> for any required action inputs.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.get(int id)</td>
+                    <td>Fetch a ticket. Returns [id, time_created, time_changed, attributes].</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.create(string summary, string description, struct attributes={}, boolean notify=False, dateTime.iso8601 when=None)</td>
+                    <td>Create a new ticket, returning the ticket ID.
+Overriding 'when' requires admin permission.</td>
+                    <td>TICKET_CREATE</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.update(int id, string comment, struct attributes={}, boolean notify=False, string author="", dateTime.iso8601 when=None)</td>
+                    <td>Update a ticket, returning the new ticket in the same form as
+get(). 'New-style' call requires two additional items in attributes:
+(1) 'action' for workflow support (including any supporting fields
+as retrieved by getActions()),
+(2) '_ts' changetime token for detecting update collisions (as received
+from get() or update() calls).
+<i>Calling update without 'action' and '_ts' changetime token is
+deprecated, and will raise errors in a future version.</i></td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.delete(int id)</td>
+                    <td>Delete ticket with the given id.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">struct ticket.changeLog(int id, int when=0)</td>
+                    <td>Return the changelog as a list of tuples of the form
+(time, author, field, oldvalue, newvalue, permanent).
+While the other tuple elements are quite self-explanatory,
+the <tt>permanent</tt> flag is used to distinguish collateral changes
+that are not yet immutable (like attachments, currently).</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.listAttachments(int ticket)</td>
+                    <td>Lists attachments for a given ticket. Returns (filename,
+description, size, time, author) for each attachment.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">base64 ticket.getAttachment(int ticket, string filename)</td>
+                    <td>returns the content of an attachment.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string ticket.putAttachment(int ticket, string filename, string description, base64 data, boolean replace=True)</td>
+                    <td>Add an attachment, optionally (and defaulting to) overwriting an
+existing one. Returns filename.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">boolean ticket.deleteAttachment(int ticket, string filename)</td>
+                    <td>Delete an attachment.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.getTicketFields()</td>
+                    <td>Return a list of all ticket fields fields.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.component">
+              ticket.component - Interface to ticket component objects.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.component" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.component.getAll()</td>
+                    <td>Get a list of all ticket component names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">struct ticket.component.get(string name)</td>
+                    <td>Get a ticket component.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.component.delete(string name)</td>
+                    <td>Delete a ticket component</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.component.create(string name, struct attributes)</td>
+                    <td>Create a new ticket component with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.component.update(string name, struct attributes)</td>
+                    <td>Update ticket component with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.milestone">
+              ticket.milestone - Interface to ticket milestone objects.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.milestone" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.milestone.getAll()</td>
+                    <td>Get a list of all ticket milestone names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">struct ticket.milestone.get(string name)</td>
+                    <td>Get a ticket milestone.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.milestone.delete(string name)</td>
+                    <td>Delete a ticket milestone</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.milestone.create(string name, struct attributes)</td>
+                    <td>Create a new ticket milestone with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.milestone.update(string name, struct attributes)</td>
+                    <td>Update ticket milestone with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.priority">
+              ticket.priority - Interface to ticket priority.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.priority" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.priority.getAll()</td>
+                    <td>Get a list of all ticket priority names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string ticket.priority.get(string name)</td>
+                    <td>Get a ticket priority.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.priority.delete(string name)</td>
+                    <td>Delete a ticket priority</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.priority.create(string name, string value)</td>
+                    <td>Create a new ticket priority with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.priority.update(string name, string value)</td>
+                    <td>Update ticket priority with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.resolution">
+              ticket.resolution - Interface to ticket resolution.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.resolution" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.resolution.getAll()</td>
+                    <td>Get a list of all ticket resolution names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string ticket.resolution.get(string name)</td>
+                    <td>Get a ticket resolution.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.resolution.delete(string name)</td>
+                    <td>Delete a ticket resolution</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.resolution.create(string name, string value)</td>
+                    <td>Create a new ticket resolution with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.resolution.update(string name, string value)</td>
+                    <td>Update ticket resolution with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.severity">
+              ticket.severity - Interface to ticket severity.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.severity" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.severity.getAll()</td>
+                    <td>Get a list of all ticket severity names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string ticket.severity.get(string name)</td>
+                    <td>Get a ticket severity.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.severity.delete(string name)</td>
+                    <td>Delete a ticket severity</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.severity.create(string name, string value)</td>
+                    <td>Create a new ticket severity with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.severity.update(string name, string value)</td>
+                    <td>Update ticket severity with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.status">
+              ticket.status - An interface to Trac ticket status objects.
+Note: Status is defined by workflow, and all methods except <tt>getAll()</tt>
+are deprecated no-op methods - these will be removed later.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.status" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.status.getAll()</td>
+                    <td>Returns all ticket states described by active workflow.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">struct ticket.status.get(string name)</td>
+                    <td>Deprecated no-op method. Do not use.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.status.delete(string name)</td>
+                    <td>Deprecated no-op method. Do not use.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.status.create(string name, struct attributes)</td>
+                    <td>Deprecated no-op method. Do not use.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.status.update(string name, struct attributes)</td>
+                    <td>Deprecated no-op method. Do not use.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.type">
+              ticket.type - Interface to ticket type.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.type" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.type.getAll()</td>
+                    <td>Get a list of all ticket type names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string ticket.type.get(string name)</td>
+                    <td>Get a ticket type.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.type.delete(string name)</td>
+                    <td>Delete a ticket type</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.type.create(string name, string value)</td>
+                    <td>Create a new ticket type with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.type.update(string name, string value)</td>
+                    <td>Update ticket type with the given value.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.ticket.version">
+              ticket.version - Interface to ticket version objects.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.ticket.version" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array ticket.version.getAll()</td>
+                    <td>Get a list of all ticket version names.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">struct ticket.version.get(string name)</td>
+                    <td>Get a ticket version.</td>
+                    <td>TICKET_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.version.delete(string name)</td>
+                    <td>Delete a ticket version</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.version.create(string name, struct attributes)</td>
+                    <td>Create a new ticket version with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">int ticket.version.update(string name, struct attributes)</td>
+                    <td>Update ticket version with the given attributes.</td>
+                    <td>TICKET_ADMIN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl><dl>
+            <h3 id="rpc.wiki">
+              wiki - Superset of the
+<a class="ext-link" href="http://www.jspwiki.org/Wiki.jsp?page=WikiRPCInterface2"><span class="icon">&nbsp;</span>WikiRPC API</a>.
+            <a class="anchor" href="https://svn.jimdo-server.com/trac/login/rpc#rpc.wiki" title="Link here"> ¶</a></h3>
+            <dd>
+              <table class="listing tickets">
+                <thead>
+                  <tr>
+                    <th style="width:40%">Function</th>
+                    <th style="width:45%">Description</th>
+                    <th style="width:15%">Permission required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">struct wiki.getRecentChanges(dateTime.iso8601 since)</td>
+                    <td>Get list of changed pages since timestamp</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">int wiki.getRPCVersionSupported()</td>
+                    <td>Returns 2 with this version of the Trac API.</td>
+                    <td>WIKI_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">string wiki.getPage(string pagename, int version=None)</td>
+                    <td>Get the raw Wiki text of page, latest version.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string wiki.getPageVersion(string pagename, int version=None)</td>
+                    <td>Get the raw Wiki text of page, latest version.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">string wiki.getPageHTML(string pagename, int version=None)</td>
+                    <td>Return page in rendered HTML, latest version.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string wiki.getPageHTMLVersion(string pagename, int version=None)</td>
+                    <td>Return page in rendered HTML, latest version.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array wiki.getAllPages()</td>
+                    <td>Returns a list of all pages. The result is an array of utf8 pagenames.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">struct wiki.getPageInfo(string pagename, int version=None)</td>
+                    <td>Returns information about the given page.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">struct wiki.getPageInfoVersion(string pagename, int version=None)</td>
+                    <td>Returns information about the given page.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">boolean wiki.putPage(string pagename, string content, struct attributes)</td>
+                    <td>writes the content of the page.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array wiki.listAttachments(string pagename)</td>
+                    <td>Lists attachments on a given page.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">base64 wiki.getAttachment(string path)</td>
+                    <td>returns the content of an attachment.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">boolean wiki.putAttachment(string path, base64 data)</td>
+                    <td>(over)writes an attachment. Returns True if successful.
+This method is compatible with WikiRPC.  <tt>putAttachmentEx</tt> has a more
+extensive set of (Trac-specific) features.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">boolean wiki.putAttachmentEx(string pagename, string filename, string description, base64 data, boolean replace=True)</td>
+                    <td>Attach a file to a Wiki page. Returns the (possibly transformed)
+filename of the attachment.
+Use this method if you don't care about WikiRPC compatibility.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">boolean wiki.deletePage(string name, int version=None)</td>
+                    <td>Delete a Wiki page (all versions) or a specific version by
+including an optional version number. Attachments will also be
+deleted if page no longer exists. Returns True for success.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">boolean wiki.deleteAttachment(string path)</td>
+                    <td>Delete an attachment.</td>
+                    <td>By resource</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-even">
+                    <td style="padding-left:4em;text-indent:-4em">array wiki.listLinks(string pagename)</td>
+                    <td><i>Not implemented</i></td>
+                    <td>WIKI_VIEW</td>
+                  </tr>
+                </tbody><tbody>
+                  <tr class="color3-odd">
+                    <td style="padding-left:4em;text-indent:-4em">string wiki.wikiToHtml(string text)</td>
+                    <td>Render arbitrary Wiki text as HTML.</td>
+                    <td>WIKI_VIEW</td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr>
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="./Remote Procedure Call (RPC) – TRAC_files/trac_logo_mini.png" height="30" width="107" alt="Trac Powered"></a>
+      <p class="left">
+        Powered by <a href="https://svn.jimdo-server.com/trac/about"><strong>Trac 0.11.7</strong></a><br>
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right"></p>
+    </div>
+  
+</body></html>
