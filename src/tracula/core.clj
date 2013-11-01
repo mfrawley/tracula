@@ -117,6 +117,7 @@
   (compcore/GET "/tickets/fields" [] (jsonify (get-ticket-fields)))
   (compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
   (compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
+  (compcore/GET "/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
 
   (compcore/POST "/tickets" {params :params} (rest-create-ticket params))
     (compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
