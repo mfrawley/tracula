@@ -89,6 +89,8 @@
 (compcore/defroutes approutes
   (compcore/GET "/" [] "<h1>Hello World</h1>")
   (compcore/GET "/methods" [] (jsonify (list-methods)))
+  (compcore/GET "/recent" [] (jsonify (get-recent)))
+  (compcore/GET "/help/:method" [method] (get-method-help method))
   )
 
 (defn -main []
