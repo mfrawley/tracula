@@ -1,11 +1,23 @@
 <html>
 <head>
 <title>Trac uploader</title>
-<script src="https://raw.github.com/enyo/dropzone/master/downloads/dropzone.js"></script>
+
+
+<link rel="stylesheet" href="css/basic.css" />
+<link rel="stylesheet" href="css/dropzone.css" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+<link href="css/bootflat.css" rel="stylesheet" media="screen">
+<link href="css/bootflat-extensions.css" rel="stylesheet" media="screen">
+<link href="css/bootflat-square.css" rel="stylesheet" media="screen">
+
+<script src="js/dropzone.js"></script>
 </head>
+
 <body>
-
-
 <form action="/files"
       class="dropzone"
       id="my-awesome-dropzone">
@@ -13,8 +25,8 @@
 	<input type="file" name="file" />
 </form>
 
-<script>
-var Dropzone = require("dropzone");
-</script>
+<script src="js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
