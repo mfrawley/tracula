@@ -5,6 +5,12 @@
 (require '[clj-time.format :as tformat])
 (require 'ring.adapter.jetty)
 (require '[compojure.core :as compcore])
+(require '[compojure.handler :as handler])
+
+; (:require [compojure.route :as route]
+;           [compojure.handler :as handler]))
+
+; (use 'ring.middleware.params)
 
 (def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
 (def user-creds ["mark" "O3xVfe14"])
@@ -68,8 +74,8 @@
 	(let [notify false action "done" attrs {:_ts (get-current-timestamp-str) :action "done"}]
 	(api-req "ticket.update" [ticketno commentstr attrs])))
 
-(defn create-ticket [summary description attributes]
-	(let [notify false]
+(defn create-ticket [summary description]
+	(let [notify false attributes {}]
 	(api-req "ticket.create" [summary description attributes notify])))
 
 (defn get-recent []
@@ -81,21 +87,25 @@
 ; (defn query-tickets [query]
 ; 	(api-req " ticket.query" ["status!=closed"]))
 
-; (defn app [request]
-;   {:status 200
-;    :headers {"Content-Type" "text/plain"}
-;    :body "Hello World"})
+(defn rest-create-ticket [params]
+	(jsonify (create-ticket (params :summary) (params :description))))
+
+(defn rest-echo [params]
+	(jsonify params))
 
 (compcore/defroutes approutes
   (compcore/GET "/" [] "<h1>Hello World</h1>")
   (compcore/GET "/methods" [] (jsonify (list-methods)))
   (compcore/GET "/recent" [] (jsonify (get-recent)))
   (compcore/GET "/help/:method" [method] (get-method-help method))
-  (compcore/GET "/tickets/:id" [id] (get-ticket id))
-  ; (compcore/PUT "/tickets" [] (get-ticket id))
+  (compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
+  (compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
+
+  (compcore/POST "/tickets" {params :params} (rest-create-ticket params))
+  (compcore/POST "/echo" {params :params} (rest-echo params))
+  ; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
   )
 
 (defn -main []
-	(defonce server (ring.adapter.jetty/run-jetty #'approutes {:port 8080 :join? false}))
+	(defonce server (ring.adapter.jetty/run-jetty (handler/site approutes) {:port 8080 :join? false}))
 	)
-

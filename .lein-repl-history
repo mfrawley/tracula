@@ -109,3 +109,4 @@ get-current-timestamp-str
 (require '[tracula.core] :reload)
 (get-recent)
 (get-ticket 6896)
+(get-ticket-actions 62529)
