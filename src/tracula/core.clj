@@ -3,6 +3,8 @@
 (require '[clojure.data.json :as json])
 (require '[clj-time.core :as cltime])
 (require '[clj-time.format :as tformat])
+(require 'ring.adapter.jetty)
+(require '[compojure.core :as compcore])
 
 (def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
 (def user-creds ["mark" "O3xVfe14"])
@@ -73,11 +75,23 @@
 (defn get-recent []
 	(api-req "ticket.getRecentChanges" [(format-ts-for-json (get-current-timestamp-str))]))
 
+(defn jsonify [value] (json/write-str value))
+
 ; too new
 ; (defn query-tickets [query]
 ; 	(api-req " ticket.query" ["status!=closed"]))
 
+; (defn app [request]
+;   {:status 200
+;    :headers {"Content-Type" "text/plain"}
+;    :body "Hello World"})
+
+(compcore/defroutes approutes
+  (compcore/GET "/" [] "<h1>Hello World</h1>")
+  (compcore/GET "/methods" [] (jsonify (list-methods)))
+  )
+
 (defn -main []
-	(println (get-ticket example-ticket))
+	(defonce server (ring.adapter.jetty/run-jetty #'approutes {:port 8080 :join? false}))
 	)
 
