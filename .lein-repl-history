@@ -112,3 +112,35 @@ get-current-timestamp-str
 (get-ticket-actions 62529)
 (empty? [])
 (seq [])
+(use '[cssgen])
+(def width (px 960))
+ (rule "ul.nav, ol"
+      :color :black
+      :background-color :#ddd
+      :padding [:1px "2px" (px 3) 0])
+(def width (px 960))
+(require '[cssgen])
+(def width (cssgen/px 960))
+(require '[cssgen :as cssgen])
+(def width (cssgen/px 960))
+(rule "ul#nav, ol"
+    :color :black
+    :background-color :#ddd
+    :padding [:1px "2px" (px 3) 0])
+(rule "ul#nav, ol" :color :black :background-color :#ddd :padding [:1px "2px" (px 3) 0])
+(rule "ul#nav, ol" :color :black :background-color :#ddd :padding [:1px "2px" (cssgen/px 3) 0])
+(require '[clj-style.core :as cs])
+cs
+(cs)
+(cs/defrule)
+(cs/defrule  div-foo
+  [:div#foo
+   :margin "0px"
+   [:span.bar
+    :color "black"
+    :font-weight "bold"
+    [:a:hover
+     :text-decoration "none"]]])
+div-foo
+(cs/render div-foo)
+(println (cs/render div-foo))

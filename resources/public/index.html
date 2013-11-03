@@ -5,7 +5,7 @@
 <!-- <link rel="stylesheet" href="css/basic.css" />
 <link rel="stylesheet" href="css/dropzone.css" /> -->
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="widtd=device-widtd, initial-scale=1.0, user-scalable=no">
 <!-- Bootstrap -->
 <link href="bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
@@ -20,8 +20,8 @@
 
 <body >
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<form name="search" class="form-inline">
+<nav class="navbar navbar-default" role="navigation">
+	<form name="search" >
 	<div class="form-group">
     	<label class="sr-only" for="ticket_search">Search trac</label>
 		<input class="form-control input-lg" type="search" name="ticket_search" placeholder="Search trac" />
@@ -30,8 +30,12 @@
 		<button type="submit" class="btn btn-default">Search</button>
 	</form>
 </nav>
-<h1>Welcome to Tracula</h1>
 
+<table class="table table-hover table-striped">
+<tr><th>ID</th><th>Title</th><th>Status</th><th>Assigned To</th></tr>
+<tr><td>324</td><td>Some title</td><td>Open</td><td>Mark</td></tr>
+<tr><td>324</td><td>Some title</td><td>Resolved</td><td>Jan</td></tr>
+</table>
 <script src="js/jquery.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>

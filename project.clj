@@ -10,6 +10,7 @@
   				 [compojure "1.1.6"]
   				 [prismatic/dommy "0.1.1"]
   				 [org.clojure/clojurescript "0.0-1978"]
+           [clj-style "1.0.1"]
   				 ]
 :cljsbuild {
 	:builds [{
