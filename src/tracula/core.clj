@@ -4,7 +4,9 @@
 (require '[clj-time.core :as cltime])
 (require '[clj-time.format :as tformat])
 (require 'ring.adapter.jetty)
+(require '[ring.util.response :as resp])
 (require '[compojure.core :as compcore])
+(require '[compojure.route :as route])
 (require '[compojure.handler :as handler])
 
 ; (:require [compojure.route :as route]
@@ -105,25 +107,26 @@
 (compcore/defroutes approutes
 	;;;;;;;;;;;;;;;;;;;;;;;;
 	;todo, put API docs here
-  (compcore/GET "/" [] "<h1>Hello World</h1>")
-  ;;;;;;;;;;;;;;;;;;;;;;
-  ; help/utility methods
-  (compcore/POST "/echo" {params :params} (rest-echo params))
-  (compcore/GET "/methods" [] (jsonify (list-methods)))
-  (compcore/GET "/recent" [] (jsonify (get-recent)))
-  (compcore/GET "/help/:method" [method] (get-method-help method))
-  ;;;;;;;;;;;;;;
-  ;ticket routes
-  (compcore/GET "/tickets/fields" [] (jsonify (get-ticket-fields)))
-  (compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
-  (compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
-  (compcore/GET "/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
+	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))
+	(route/resources "/")
+  	(route/not-found "Not Found")
+	;;;;;;;;;;;;;;;;;;;;;;
+	; help/utility methods
+	(compcore/POST "/echo" {params :params} (rest-echo params))
+	(compcore/GET "/methods" [] (jsonify (list-methods)))
+	(compcore/GET "/recent" [] (jsonify (get-recent)))
+	(compcore/GET "/help/:method" [method] (get-method-help method))
+	;;;;;;;;;;;;;;
+	;ticket routes
+	(compcore/GET "/tickets/fields" [] (jsonify (get-ticket-fields)))
+	(compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
+	(compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
+	(compcore/GET "/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
 
-  (compcore/POST "/tickets" {params :params} (rest-create-ticket params))
-    (compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
+	(compcore/POST "/tickets" {params :params} (rest-create-ticket params))
+	(compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
 
-
-  ; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
+	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
   )
 
 (defn -main []
