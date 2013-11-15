@@ -1,0 +1,24 @@
+{
+  "name": "Tracula",
+  "version": "0.0.1",
+  "authors": [
+    "Mark Frawley <mark@jimdo.com>"
+  ],
+  "description": "A better trac client",
+  "main": "index.html",
+  "keywords": [
+    "trac"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+
+  }
+}
