@@ -107,9 +107,7 @@
 (compcore/defroutes approutes
 	;;;;;;;;;;;;;;;;;;;;;;;;
 	;todo, put API docs here
-	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))
-	(route/resources "/")
-  	(route/not-found "Not Found")
+
 	;;;;;;;;;;;;;;;;;;;;;;
 	; help/utility methods
 	(compcore/POST "/echo" {params :params} (rest-echo params))
@@ -127,8 +125,21 @@
 	(compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
 
 	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
-  )
+	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))
+	(route/resources "/static" {:root "public"})
+	(route/not-found "Not Found")
+ )
 
 (defn -main []
 	(defonce server (ring.adapter.jetty/run-jetty (handler/site approutes) {:port 8080 :join? false}))
 	)
+
+(defn restart-server []
+	(.stop server)
+	(.start server))
+
+(defn stop-server []
+	(.stop server))
+
+(defn start-server []
+	(.start server))
