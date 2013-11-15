@@ -19,7 +19,7 @@
 <script type="text/x-handlebars">
 
 <nav class="navbar navbar-default" role="navigation">
-	<form name="search" >
+	<form name="search" action="/search" >
 	<div class="form-group">
     	<label class="sr-only" for="ticket_search">Search trac</label>
     	{{input type="search" value=searchQuery placeholder="Search trac" class="form-control input-lg"}}
@@ -28,17 +28,15 @@
 	</form>
 </nav>
 
+</script>
+
+<script type="text/x-handlebars" data-template-name="search">
 	<table class="table table-hover table-striped">
 		<tr><th>ID</th><th>Title</th><th>Status</th><th>Assigned To</th></tr>
 		{{#each tickets}}
 		<tr><td>{{id}}</td><td>{{title}}</td><td>{{status}}</td><td>{{assigned_to}}</td></tr>
 		{{/each}}
 	</table>
-
-</script>
-
-<script type="text/x-handlebars" data-template-name="search-results">
-
 </script>
 
 <!-- JS libs -->
