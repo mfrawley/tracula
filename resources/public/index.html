@@ -27,15 +27,19 @@
 		<button type="submit" class="btn btn-default">Search</button>
 	</form>
 </nav>
+{{outlet}}
 
+<footer>
+<p>Crafted with Ember.js</p>
+</footer>
 </script>
 
-<script type="text/x-handlebars" data-template-name="search">
+<script type="text/x-handlebars" data-template-name="ticket">
 	<table class="table table-hover table-striped">
 		<tr><th>ID</th><th>Title</th><th>Status</th><th>Assigned To</th></tr>
-		{{#each tickets}}
-		<tr><td>{{id}}</td><td>{{title}}</td><td>{{status}}</td><td>{{assigned_to}}</td></tr>
-		{{/each}}
+		
+		<tr><td>{{id}}</td><td>{{attributes.summary}}</td><td>{{attributes.status}}</td><td>{{attributes.owner}}</td></tr>
+		
 	</table>
 </script>
 
@@ -46,7 +50,6 @@
 <script src="static/bower_components/ember-data/ember-data.js"></script>
 
 <script src="static/js/tracula-app.js"></script>
-<script src="static/js/tracula-router.js"></script>
 <script src="static/js/models/ticket.js"></script>
 
 <script src="static/js/bootstrap.min.js"></script>
