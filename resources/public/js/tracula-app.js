@@ -5,6 +5,13 @@ Tracula.Store = DS.Store.extend({
     revision: 12
 });
 
+Tracula.Ticket = DS.Model.extend({
+    id: DS.attr('integer'),
+    owner: DS.attr('string'),
+    summary: DS.attr('string'),
+    isCompleted: DS.attr('boolean')
+});
+
 Tracula.Router.map(function() {
     // this.route("ticket");
     // this.resource('tickets');
@@ -37,15 +44,13 @@ Tracula.ApplicationController = Ember.Controller.extend({
 Tracula.TicketRoute = Ember.Route.extend({
     model: function(params) {
         var url = Tracula.baseUrl + '/tickets/'+params.ticket_id;
-        return Ember.$.getJSON(url).then(function(data) {
-            // console.log(data);
-            return data;
-        });
+        return Ember.$.getJSON(url);
+    },
+    setupController: function(controller, model) {
+        console.log(model);
+        controller.set('ticket', model);
     }
 });
 
 Tracula.TicketController = Ember.Controller.extend({
-    setupController: function(controller, model) {
-        controller.set('model', model);
-    }
 })

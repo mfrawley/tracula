@@ -1,4 +1,6 @@
 Tracula.Ticket = DS.Model.extend({
-  title: DS.attr('string'),
-  isCompleted: DS.attr('boolean')
+    id: DS.attr('integer'),
+    owner: DS.attr('string'),
+    summary: DS.attr('string'),
+    isCompleted: DS.attr('boolean')
 });
