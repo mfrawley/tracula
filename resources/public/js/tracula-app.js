@@ -38,6 +38,8 @@ Tracula.ApplicationController = Ember.Controller.extend({
 
         console.log(this.searchQuery);
         this.prevQuery = this.searchQuery;
+        this.transitionTo('ticket', this.searchQuery);
+        
     }.observes('searchQuery').on('init')
 });
 
