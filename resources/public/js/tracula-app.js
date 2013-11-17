@@ -66,6 +66,11 @@ Tracula.TicketController = Ember.Controller.extend({
             return '<a href="' + Tracula.wikiUrl + linkPage + '">' + linkPage + '</a>';            
         });
     },
+    replaceBold : function(s) {
+        return s.replace(/\'\'\'([\w\:\s\t]+)\'\'\'/ig, function(g, l) {
+            return "<b>"+l+"</b>";
+        });
+    },
     description : function() {
         var ticket = this.get('ticket');
         var desc = ticket.attributes.description;
@@ -74,7 +79,9 @@ Tracula.TicketController = Ember.Controller.extend({
         desc = desc.replaceAll('}}}', "</font>");
         desc = desc.replaceAll('=== ', "<h3>");
         desc = desc.replaceAll(' ===', "</h3>");
-        desc = this.replaceWikiLinks(desc);
+        desc = desc.replaceAll('\\[\\[BR\\]\\]', "<br>");
+        desc = this.replaceBold(desc);
+        // desc = this.replaceWikiLinks(desc);
         
         return desc;
     }.property('ticket'),
