@@ -54,12 +54,20 @@ Tracula.TicketRoute = Ember.Route.extend({
 });
 
 Tracula.TicketController = Ember.Controller.extend({
+    replaceWikiLinks : function (s) {
+        return s.replace(/[^\[](http[^\[\s]*)/g, function (m, l) { // normal link
+            return '<a href="' + l + '">' + l + '</a>';
+        });
+    },
     description : function() {
         var ticket = this.get('ticket');
         var desc = ticket.attributes.description;
         desc = desc.replaceAll('\n', "<br>");
         desc = desc.replaceAll('{{{', "<font style=\"font-family:\'Courier\'\">");
         desc = desc.replaceAll('}}}', "</font>");
+        desc = desc.replaceAll('=== ', "<h3>");
+        desc = desc.replaceAll(' ===', "</h3>");
+        desc = this.replaceWikiLinks(desc);
         return desc;
     }.property('ticket')
 });
