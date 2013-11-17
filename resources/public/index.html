@@ -55,14 +55,16 @@
     <div class="col-md-1">Owner: {{attributes.owner}}</div>
     <div class="col-md-1">Reported by: {{attributes.reporter}}</div>
   </div>
+  {{/with}}
+
   <div class="row">
     <div class="col-md-12">
-    <pre>
-    {{attributes.description}}
-    </pre>
+    
+    {{{description}}}
+    
     </div>
   </div>
-  {{/with}}
+  
     
 </script>
 
@@ -71,10 +73,10 @@
 <script src="static/bower_components/handlebars/handlebars.js"></script>
 <script src="static/bower_components/ember/ember.js"></script>
 <script src="static/bower_components/ember-data/ember-data.js"></script>
-
+<script src="static/bower_components/underscore/underscore-min.js"></script>
+<script src="static/js/utils.js"></script>
 <script src="static/js/tracula-app.js"></script>
 <script src="static/js/models/ticket.js"></script>
-
 <script src="static/js/bootstrap.min.js"></script>
 </body>
 </html>

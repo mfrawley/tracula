@@ -49,13 +49,17 @@ Tracula.TicketRoute = Ember.Route.extend({
         return Ember.$.getJSON(url);
     },
     setupController: function(controller, model) {
-
         controller.set('ticket', model);
-        controller.searchQuery = controller.ticket.id;
-
     }
 });
 
 Tracula.TicketController = Ember.Controller.extend({
-    
-})
+    description : function() {
+        var ticket = this.get('ticket');
+        var desc = ticket.attributes.description;
+        desc = desc.replaceAll('\n', "<br>");
+        desc = desc.replaceAll('{{{', "<font style=\"font-family:\'monospace\'\">");
+        desc = desc.replaceAll('}}}', "</font>");
+        return desc;
+    }.property('ticket')
+});
