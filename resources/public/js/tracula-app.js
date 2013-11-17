@@ -55,6 +55,7 @@ Tracula.TicketRoute = Ember.Route.extend({
 });
 
 Tracula.TicketController = Ember.Controller.extend({
+    
     replaceWikiLinks : function (s) {
         return s.replace(/\[(.*?)\]/g, function (m, l) { // internal link or image
             
@@ -76,6 +77,7 @@ Tracula.TicketController = Ember.Controller.extend({
         desc = desc.replaceAll('=== ', "<h3>");
         desc = desc.replaceAll(' ===', "</h3>");
         desc = this.replaceWikiLinks(desc);
+        
         return desc;
     }.property('ticket')
 });
