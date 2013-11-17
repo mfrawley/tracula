@@ -58,7 +58,7 @@ Tracula.TicketController = Ember.Controller.extend({
         var ticket = this.get('ticket');
         var desc = ticket.attributes.description;
         desc = desc.replaceAll('\n', "<br>");
-        desc = desc.replaceAll('{{{', "<font style=\"font-family:\'monospace\'\">");
+        desc = desc.replaceAll('{{{', "<font style=\"font-family:\'Courier\'\">");
         desc = desc.replaceAll('}}}', "</font>");
         return desc;
     }.property('ticket')
