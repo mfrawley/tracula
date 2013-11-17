@@ -29,7 +29,10 @@
     <button type="submit" class="btn btn-success"> Search</button>
   </form>
 </nav>
+
+<div class="container">
 {{outlet}}
+</div>
 
 <footer>
 <p>Crafted with Ember.js</p>
@@ -37,26 +40,29 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="ticket">
-        {{#with ticket}}
-        <div class="row">
-          <div class="col-md-8">
-            <div class="page-header">
-              <h1>{{attributes.summary}} <small>{{id}}</small></h1>
-            </div> 
-          </div> 
-          
-        </div>
-        <div class="row">
-          <div class="col-md-4">{{attributes.status}}</div><div class="col-md-4">{{attributes.owner}}</div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-          <pre>
-          {{attributes.description}}
-          </pre>
-          </div>
-        </div>
-        {{/with}}
+  {{#with ticket}}
+  <div class="row">
+    <div class="col-md-8">
+      <div class="page-header">
+        <h1>{{attributes.summary}} <small>{{id}}</small></h1>
+      </div> 
+    </div> 
+    
+  </div>
+  <div class="row">
+    <div class="col-md-1">Priority: {{attributes.priority}}</div>
+    <div class="col-md-1">Status: {{attributes.status}}</div>
+    <div class="col-md-1">Owner: {{attributes.owner}}</div>
+    <div class="col-md-1">Reported by: {{attributes.reporter}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <pre>
+    {{attributes.description}}
+    </pre>
+    </div>
+  </div>
+  {{/with}}
     
 </script>
 

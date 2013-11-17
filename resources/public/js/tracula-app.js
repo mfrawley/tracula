@@ -39,7 +39,7 @@ Tracula.ApplicationController = Ember.Controller.extend({
         console.log(this.searchQuery);
         this.prevQuery = this.searchQuery;
         this.transitionTo('ticket', this.searchQuery);
-        
+
     }.observes('searchQuery').on('init')
 });
 
@@ -49,10 +49,13 @@ Tracula.TicketRoute = Ember.Route.extend({
         return Ember.$.getJSON(url);
     },
     setupController: function(controller, model) {
-        console.log(model);
+
         controller.set('ticket', model);
+        controller.searchQuery = controller.ticket.id;
+
     }
 });
 
 Tracula.TicketController = Ember.Controller.extend({
+    
 })
