@@ -39,7 +39,7 @@ Tracula.ApplicationController = Ember.Controller.extend({
 
         console.log(this.searchQuery);
         this.prevQuery = this.searchQuery;
-        this.transitionTo('ticket', this.searchQuery);
+        this.transitionToRoute('ticket', this.searchQuery);
 
     }.observes('searchQuery').on('init')
 });
@@ -50,6 +50,7 @@ Tracula.TicketRoute = Ember.Route.extend({
         return Ember.$.getJSON(url);
     },
     setupController: function(controller, model) {
+        console.log(model);
         controller.set('ticket', model);
     }
 });
@@ -58,10 +59,7 @@ Tracula.TicketController = Ember.Controller.extend({
     
     replaceWikiLinks : function (s) {
         return s.replace(/\[(.*?)\]/g, function (m, l) { // internal link or image
-            
-            console.log(l)
             var p = l.split(/\:/);
-            
             var linkBase = p[0];
             var linkPage = p[1];
 
@@ -79,5 +77,12 @@ Tracula.TicketController = Ember.Controller.extend({
         desc = this.replaceWikiLinks(desc);
         
         return desc;
+    }.property('ticket'),
+    created : function() {
+        var ticket = this.get('ticket');
+        var created = ticket.time_created['__jsonclass__'][1];
+        ticket.created = created;
+        this.set('ticket', ticket);
+        return created;
     }.property('ticket')
 });
