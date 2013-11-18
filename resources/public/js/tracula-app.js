@@ -1,6 +1,6 @@
 Tracula = Ember.Application.create();
 Tracula.wikiUrl = 'https://svn.jimdo-server.com/trac/wiki/';
-Tracula.baseUrl = 'http://localhost:8080';
+Tracula.baseUrl = 'http://'+window.location.host;
 
 Tracula.Store = DS.Store.extend({
     revision: 12
@@ -56,14 +56,14 @@ Tracula.TicketRoute = Ember.Route.extend({
 });
 
 Tracula.TicketController = Ember.Controller.extend({
-    
+
     replaceWikiLinks : function (s) {
         return s.replace(/\[(.*?)\]/g, function (m, l) { // internal link or image
             var p = l.split(/\:/);
             var linkBase = p[0];
             var linkPage = p[1];
 
-            return '<a href="' + Tracula.wikiUrl + linkPage + '">' + linkPage + '</a>';            
+            return '<a href="' + Tracula.wikiUrl + linkPage + '">' + linkPage + '</a>';
         });
     },
     replaceBold : function(s) {
@@ -82,7 +82,7 @@ Tracula.TicketController = Ember.Controller.extend({
         desc = desc.replaceAll('\\[\\[BR\\]\\]', "<br>");
         desc = this.replaceBold(desc);
         // desc = this.replaceWikiLinks(desc);
-        
+
         return desc;
     }.property('ticket'),
     created : function() {
