@@ -1,0 +1,11 @@
+(def replace-bold (s)
+  (s.replace /\'\'\'([\w\:\s\t]+)\'\'\'/ig  
+    (lambda (g, l) (+ "<b>" l "</b>"))))
+
+(def replace-wiki-links (s)
+    (s.replace /\[(.*?)\]/g 
+        (lambda (m, l) 
+            (var p (l.split /\:/))
+            (var linkBase (p 0))
+            (var linkPage (p 1))
+            (+ "<a href=\"" Tracula.wikiUrl linkPage "\">" linkPage "</a>"))))
