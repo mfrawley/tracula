@@ -6,10 +6,13 @@ Tracula.TicketCreateController = Ember.Controller.extend({
             var self = this;
             var url = Tracula.baseUrl + '/tickets';
             return Ember.$.post(url, {'description' : this.description, 'summary' : this.summary},
-                function(data) {
-                    console.log(data);
-                    var ticket_id = data;
-                    self.transitionToRoute('ticket.view', ticket_id);
+                function(ticket_id) {
+                    if(isNaN(ticket_id)) {
+                        throw "createTicket failed"
+                    } else {
+                        self.transitionToRoute('ticket.view', ticket_id);    
+                    }
+                    
                 });
         }
     }
