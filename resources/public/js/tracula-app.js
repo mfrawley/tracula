@@ -29,19 +29,29 @@ Tracula.ApplicationRoute = Ember.Route.extend({
 Tracula.ApplicationController = Ember.Controller.extend({
     prevQuery : '',
     searchQuery : '',
-    appName: "Tracula - It may suck but it won't bite",
-    searchQueryDidChange : function(q) {
-        if(this.searchQuery == '') return;
-        if(this.searchQuery.length < 3) {
-            console.log('same or too short');
-            return;
+    appName: "Tracula",
+    // searchQueryDidChange : function(q) {
+    //     if(this.searchQuery == '') return;
+    //     if(this.searchQuery.length < 3) {
+    //         console.log('Search query same or too short');
+    //         return;
+    //     }
+
+    //     console.log(this.searchQuery);
+    //     this.prevQuery = this.searchQuery;
+    //     this.transitionToRoute('ticket', this.searchQuery);
+
+    // }.observes('searchQuery').on('init'),
+    actions: {
+        searchFormSubmit : function() {
+            var q = this.searchQuery;
+            if(isNaN(q)) {
+                alert('Ticket numbers need to be numbers, strange, huh?');
+            } else {
+                this.transitionToRoute('ticket', q);
+            }
         }
-
-        console.log(this.searchQuery);
-        this.prevQuery = this.searchQuery;
-        this.transitionToRoute('ticket', this.searchQuery);
-
-    }.observes('searchQuery').on('init')
+    }
 });
 
 Tracula.TicketRoute = Ember.Route.extend({
@@ -50,8 +60,14 @@ Tracula.TicketRoute = Ember.Route.extend({
         return Ember.$.getJSON(url);
     },
     setupController: function(controller, model) {
-        console.log(model);
-        controller.set('ticket', model);
+        if (model.error) {
+            var err = {'detail' : model.error, 'heading' : 'Not found'};
+            controller.set('error', err)
+            controller.set('ticket', null);
+        } else {
+            controller.set('ticket', model);
+            controller.set('error', null);
+        }
     }
 });
 
@@ -87,9 +103,12 @@ Tracula.TicketController = Ember.Controller.extend({
     }.property('ticket'),
     created : function() {
         var ticket = this.get('ticket');
-        var created = ticket.time_created['__jsonclass__'][1];
-        ticket.created = created;
-        this.set('ticket', ticket);
+        var created = '';
+        if (ticket && ticket.time_created) {
+            var created = ticket.time_created['__jsonclass__'][1];
+            ticket.created = created;
+            this.set('ticket', ticket);
+        }
         return created;
     }.property('ticket')
 });
