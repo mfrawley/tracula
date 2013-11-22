@@ -46,7 +46,7 @@ Tracula.ApplicationController = Ember.Controller.extend({
         searchFormSubmit : function() {
             var q = this.searchQuery;
             if(isNaN(q)) {
-                alert('Ticket numbers need to be numbers, strange, huh?');
+                alert('Ticket numbers need to be numbers, strange huh?');
             } else {
                 this.transitionToRoute('ticket', q);
             }
@@ -72,7 +72,8 @@ Tracula.TicketRoute = Ember.Route.extend({
 });
 
 Tracula.TicketController = Ember.Controller.extend({
-
+    needs: ['application'],
+    searchQuery: Ember.computed.alias('controllers.application.searchQuery'),
     replaceWikiLinks : function (s) {
         return s.replace(/\[(.*?)\]/g, function (m, l) { // internal link or image
             var p = l.split(/\:/);
@@ -98,7 +99,7 @@ Tracula.TicketController = Ember.Controller.extend({
         desc = desc.replaceAll('\\[\\[BR\\]\\]', "<br>");
         desc = this.replaceBold(desc);
         // desc = this.replaceWikiLinks(desc);
-
+        this.set('searchQuery', ticket.id);
         return desc;
     }.property('ticket'),
     created : function() {

@@ -222,3 +222,6 @@ git diff
 (defrecord Person [name id])
 (get-method-help "ticket.delete")
 (delete-ticket 64157)
+(get-ticket-actions 64157)
+(create-ticket "foo" "bar")
+(get-ticket-actions 64161)
