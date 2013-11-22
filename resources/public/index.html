@@ -36,7 +36,10 @@
     {{input type="search" value=searchQuery placeholder="Search trac" class="form-control input-lg"}}
   </div>
     <button type="submit" class="btn btn-success"> Search</button>
+    <button id="create-ticket" class="btn primary" {{action "createTicketAction"}}>Create</button>
   </form>
+
+  
 </nav>
 
 <div class="container">
@@ -101,6 +104,9 @@
 <script src="static/js/contrib/wiki2html.js"></script>
 <script src="static/js/tracula-app.js"></script>
 <script src="static/js/models/ticket.js"></script>
+<script src="static/js/controllers/app.controller.js"></script>
+<script src="static/js/routes/ticket.route.js"></script>
+<script src="static/js/controllers/ticket.controller.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
 </body>
 </html>
