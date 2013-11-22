@@ -17,6 +17,15 @@
 
 </head>
 
+<style>
+  [contenteditable=true] {
+    border: 1px solid white;
+  }
+  [contenteditable=true]:hover {
+    border: 1px dotted gray;
+  }
+</style>
+
 <body >
 <script type="text/x-handlebars">
 
@@ -44,7 +53,7 @@
     <div class="row">
       <div class="col-md-8">
         <div class="page-header">
-          <h1> {{ticket.attributes.summary}} <small>{{ticket.id}}</small></h1>
+          <h1> {{view Ember.ContenteditableView id="summary" contenteditable="true" valueBinding="ticket.attributes.summary" action="titleDidChange"}} <small>{{ticket.id}}</small></h1>
           <small>Created: {{created}}</small>
         </div>
       </div>
@@ -53,17 +62,17 @@
     {{#with ticket}}
       <div class="row">
         <div class="col-md-1">Type: {{attributes.type}}</div>
-        <div class="col-md-1">Component: {{attributes.component}}</div>
         <div class="col-md-1">Priority: {{attributes.priority}}</div>
         <div class="col-md-1">Status: {{attributes.status}}</div>
         <div class="col-md-1">Owner: {{attributes.owner}}</div>
         <div class="col-md-1">Reported by: {{attributes.reporter}}</div>
+        <div class="col-md-1">Component: {{attributes.component}}</div>
       </div>
     {{/with}}
 
     <hr>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" id="description" contenteditable=true>
 
       {{{description}}}
 
@@ -85,6 +94,7 @@
 <script src="static/bower_components/jquery/jquery.min.js"></script>
 <script src="static/bower_components/handlebars/handlebars.js"></script>
 <script src="static/bower_components/ember/ember.js"></script>
+<script src="static/js/views/ember.contenteditable.view.js"></script>
 <script src="static/bower_components/ember-data/ember-data.js"></script>
 <script src="static/bower_components/underscore/underscore-min.js"></script>
 <script src="static/js/utils.js"></script>

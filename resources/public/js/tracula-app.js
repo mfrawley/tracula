@@ -74,6 +74,13 @@ Tracula.TicketRoute = Ember.Route.extend({
 Tracula.TicketController = Ember.Controller.extend({
     needs: ['application'],
     searchQuery: Ember.computed.alias('controllers.application.searchQuery'),
+    actions: {
+        contentEditableFieldDidChange : function(obj) {
+            if(obj['id'] == 'summary') {
+                console.log(obj['value']);
+            }
+        }
+    },
     replaceWikiLinks : function (s) {
         return s.replace(/\[(.*?)\]/g, function (m, l) { // internal link or image
             var p = l.split(/\:/);
