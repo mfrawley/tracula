@@ -23,7 +23,7 @@ Tracula.ApplicationController = Ember.Controller.extend({
                 this.transitionToRoute('ticket.view', q);
             }
         },
-        createTicketAction : function() {
+        openCreateTicketAction : function() {
             this.transitionToRoute('ticket.create');
         }
     }

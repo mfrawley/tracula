@@ -36,7 +36,7 @@
     {{input type="search" value=searchQuery placeholder="Search trac" class="form-control input-lg"}}
   </div>
     <button type="submit" class="btn btn-success"> Search</button>
-    <button id="create-ticket" class="btn primary" {{action "createTicketAction"}}>Create</button>
+    <button id="create-ticket" class="btn primary" {{action "openCreateTicketAction"}}>Create</button>
   </form>
 
   
@@ -99,11 +99,11 @@
 <form method="create_ticket" id="create_ticket_form" {{action createTicket on="submit"}}>
   <div class="form-group">
     <label for="summary">Title/Summary</label>
-    <input type="text" name="summary" class="form-control"  id="summary"/>
+    {{input value=summary name="summary" class="form-control"  id="summary"}}
   </div>
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" class="form-control" rows="3" id="description"></textarea>
+    {{textarea value=description name="description" rows="3" class="form-control"}}
   </div>
     <button type="submit" class="btn btn-primary">Save</button>
   </div>
@@ -124,6 +124,7 @@
 <script src="static/js/controllers/app.controller.js"></script>
 <script src="static/js/routes/ticket-view.route.js"></script>
 <script src="static/js/controllers/ticket-view.controller.js"></script>
+<script src="static/js/controllers/ticket-create.controller.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
 </body>
 </html>
