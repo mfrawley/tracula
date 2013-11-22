@@ -1,4 +1,4 @@
-Tracula.TicketController = Ember.Controller.extend({
+Tracula.TicketViewController = Ember.Controller.extend({
     needs: ['application'],
     searchQuery: Ember.computed.alias('controllers.application.searchQuery'),
     actions: {

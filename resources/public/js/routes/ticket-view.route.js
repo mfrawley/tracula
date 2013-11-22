@@ -1,4 +1,4 @@
-Tracula.TicketRoute = Ember.Route.extend({
+Tracula.TicketViewRoute = Ember.Route.extend({
     model: function(params) {
         var url = Tracula.baseUrl + '/tickets/'+params.ticket_id;
         return Ember.$.getJSON(url);

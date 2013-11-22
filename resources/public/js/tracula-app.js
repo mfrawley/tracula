@@ -16,12 +16,15 @@ Tracula.Ticket = DS.Model.extend({
 Tracula.Router.map(function() {
     // this.route("ticket");
     // this.resource('tickets');
-    this.resource('ticket', { path: '/ticket/:ticket_id' });
+    this.resource('ticket', function() {
+        this.route('create', { path: '/create' });
+        this.route('view', { path: '/:ticket_id' });
+        
+    });
+    
 });
 
 Tracula.ApplicationRoute = Ember.Route.extend({
     setupController: function(controller) {
-        // `controller` is the instance of ApplicationController
-        controller.set('title', "Hello world!");
     }
 });

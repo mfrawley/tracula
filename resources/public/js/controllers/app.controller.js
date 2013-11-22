@@ -20,11 +20,11 @@ Tracula.ApplicationController = Ember.Controller.extend({
             if(isNaN(q)) {
                 alert('Ticket numbers need to be numbers, strange huh?');
             } else {
-                this.transitionToRoute('ticket', q);
+                this.transitionToRoute('ticket.view', q);
             }
         },
         createTicketAction : function() {
-            this.transitionToRoute('create-ticket');
+            this.transitionToRoute('ticket.create');
         }
     }
 });
