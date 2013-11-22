@@ -3,7 +3,7 @@
 (require '[clojure.data.json :as json])
 (require '[clj-time.core :as cltime])
 (require '[clj-time.format :as tformat])
-(require 'ring.adapter.jetty)
+(require '[ring.adapter.jetty :as jetty])
 (require '[ring.util.response :as resp])
 (require '[compojure.core :as compcore])
 (require '[compojure.route :as route])
@@ -16,6 +16,8 @@
 
 (def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
 (def user-creds ["mark" "O3xVfe14"])
+
+; (defrecord TracTicket [:id :time_created :time_changed :attributes])
 
 ;make things easier for testing
 (def example-ticket 60988)
@@ -131,7 +133,7 @@
  )
 
 (defn -main []
-	(defonce server (ring.adapter.jetty/run-jetty (handler/site approutes) {:port 8080 :join? false}))
+	(defonce server (jetty/run-jetty (handler/site approutes) {:port 8080 :join? false}))
 	)
 
 (defn restart-server []
