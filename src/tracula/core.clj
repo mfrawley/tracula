@@ -1,60 +1,19 @@
-(ns tracula.core)
-(require '[clj-http.client :as client])
-(require '[clojure.data.json :as json])
-(require '[clj-time.core :as cltime])
-(require '[clj-time.format :as tformat])
+(ns tracula.core
+	(:use [tracula.config])
+	(:use [tracula.utils])
+	)
+
 (require '[ring.adapter.jetty :as jetty])
 (require '[ring.util.response :as resp])
 (require '[compojure.core :as compcore])
 (require '[compojure.route :as route])
 (require '[compojure.handler :as handler])
 
-; (:require [compojure.route :as route]
-;           [compojure.handler :as handler]))
+; (def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
+; (def user-creds ["mark" "O3xVfe14"])
 
-; (use 'ring.middleware.params)
-
-(def url "https://svn.jimdo-server.com/trac/login/jsonrpc")
-(def user-creds ["mark" "O3xVfe14"])
-
-; (defrecord TracTicket [:id :time_created :time_changed :attributes])
-
-;make things easier for testing
-(def example-ticket 60988)
-
-(defn parse-result [body]
-	(let [err (get body "error") result (get body "result")]
-	(cond
-		err err
-		:else result)))
-
-(defn parse-body-from-response [response]
-	(let [body (response :body) ]
-		(json/read-str body)
-	))
-
-(defn parse-response [response]
-	(parse-result (parse-body-from-response response)))
-
-(defn api-req [method params]
-	(let [req-body (json/write-str {:method method :params params}) ]
-	(println req-body)
-
-	(parse-response (client/post url
-	  {:basic-auth user-creds
-	   :body req-body
-	   :content-type :json
-	   :socket-timeout 1000  ;; in milliseconds
-	   :conn-timeout 1000    ;; in milliseconds
-	   :accept :json} ))))
-
-(defn get-current-timestamp-str []
-	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now))
-	)
-(defn format-ts-for-json [datetime-str]
-	{"__jsonclass__" ["datetime" datetime-str] })
-
-(defn jsonify [value] (json/write-str value))
+; ;make things easier for testing
+; (def example-ticket 60988)
 
 (defn list-methods []
 	(api-req "system.listMethods" []))
@@ -112,19 +71,19 @@
 
 	;;;;;;;;;;;;;;;;;;;;;;
 	; help/utility methods
-	(compcore/POST "/echo" {params :params} (rest-echo params))
-	(compcore/GET "/methods" [] (jsonify (list-methods)))
-	(compcore/GET "/recent" [] (jsonify (get-recent)))
-	(compcore/GET "/help/:method" [method] (get-method-help method))
+	(compcore/POST "/api/echo" {params :params} (rest-echo params))
+	(compcore/GET "/api/methods" [] (jsonify (list-methods)))
+	(compcore/GET "/api/recent" [] (jsonify (get-recent)))
+	(compcore/GET "/api/help/:method" [method] (get-method-help method))
 	;;;;;;;;;;;;;;
 	;ticket routes
-	(compcore/GET "/tickets/fields" [] (jsonify (get-ticket-fields)))
-	(compcore/GET "/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
-	(compcore/GET "/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
-	(compcore/GET "/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
+	(compcore/GET "/api/tickets/fields" [] (jsonify (get-ticket-fields)))
+	(compcore/GET "/api/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
+	(compcore/GET "/api/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
+	(compcore/GET "/api/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
 
-	(compcore/POST "/tickets" {params :params} (rest-create-ticket params))
-	(compcore/DELETE "/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
+	(compcore/POST "/api/tickets" {params :params} (rest-create-ticket params))
+	(compcore/DELETE "/api/tickets/:id" [id] (jsonify (delete-ticket (read-string id))))
 
 	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
 	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))

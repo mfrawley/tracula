@@ -11,12 +11,6 @@
   		(is (type ticket) clojure.lang.PersistentArrayMap)
   		(has-keys [:id :time_created :time_changed :attributes] ticket)))
 
-	(deftest test-get-current-timestamp-str
-		(is (string? (get-current-timestamp-str))))
-
-	(deftest test-format-ts-for-json
-		(is (contains? (format-ts-for-json (get-current-timestamp-str)) "__jsonclass__")))
-
 	(deftest test-list-methods
 		(is
 			(list-methods) ["system.multicall" "system.listMethods" "system.methodHelp" "system.methodSignature" "system.getAPIVersion" "ticket.query"
