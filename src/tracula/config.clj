@@ -4,3 +4,5 @@
 
 ;make things easier for testing
 (def example-ticket 60988)
+
+(def port 8080)

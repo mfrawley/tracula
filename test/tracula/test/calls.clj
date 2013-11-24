@@ -1,5 +1,5 @@
-(ns tracula.test.core
-  (:use [tracula.core])
+(ns tracula.test.calls
+  (:use [tracula.calls])
   (:use [clojure.test]))
 
 (defn has-keys [expected-keys obj]
