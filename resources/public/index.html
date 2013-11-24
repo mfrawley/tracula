@@ -46,8 +46,8 @@
 {{outlet}}
 </div>
 
-<footer>
-<p>Cobbled together with Ember.js & Clojure</p>
+<footer class="container pull-right" >
+<small>Cobbled together with Ember.js & Clojure</small>
 </footer>
 </script>
 
@@ -75,6 +75,7 @@
 
     <hr>
     <div class="row">
+      <label for="description">Description</label>
       <div class="col-md-12" id="description" contenteditable=true>
 
       {{{description}}}
@@ -118,7 +119,6 @@
 <script src="static/bower_components/ember-data/ember-data.js"></script>
 <script src="static/bower_components/underscore/underscore-min.js"></script>
 <script src="static/js/utils.js"></script>
-<script src="static/js/contrib/wiki2html.js"></script>
 <script src="static/js/tracula-app.js"></script>
 <script src="static/js/models/ticket.js"></script>
 <script src="static/js/controllers/app.controller.js"></script>

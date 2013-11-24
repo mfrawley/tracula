@@ -3,9 +3,15 @@ Tracula.TicketViewController = Ember.Controller.extend({
     searchQuery: Ember.computed.alias('controllers.application.searchQuery'),
     actions: {
         contentEditableFieldDidChange : function(obj) {
+            var ticket = Ember.Object.create(this.get('ticket'));
+            var attrs = Ember.Object.create(ticket.get('attributes'));
             if(obj['id'] == 'summary') {
-                console.log(obj['value']);
+                attrs.set('summary', obj['value']);
+            } else if(obj['id'] == 'description') {
+                attrs.set('description', obj['value']);
             }
+            ticket.set('attributes', attrs);
+            console.log(ticket);
         }
     },
     replaceWikiLinks : function (s) {
