@@ -30,8 +30,8 @@
 	  {:basic-auth config/user-creds
 	   :body req-body
 	   :content-type :json
-	   :socket-timeout 1000  ;; in milliseconds
-	   :conn-timeout 1000    ;; in milliseconds
+	   :socket-timeout config/socket-timeout  ;; in milliseconds
+	   :conn-timeout config/conn-timeout    ;; in milliseconds
 	   :accept :json} ))))
 
 (defn get-current-timestamp-str []

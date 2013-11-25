@@ -11,10 +11,17 @@
 	(let [[dtime, author, field, oldvalue, newvalue, permanent ] changelog-arr]
 	{:time dtime :author author :field field :oldvalue oldvalue :newvalue newvalue :permanent permanent}))
 
+(defn json-datetime-to-str [dt-map]
+	((dt-map "__jsonclass__") 1))
+
+(defn flatten-result [res]
+	(let [flat {:id (res 0) :time_created (json-datetime-to-str (res 1)) :time_changed (json-datetime-to-str (res 2)) }]
+		(conj flat (res 3))))
+
 ;;ticket methods
 (defn get-ticket [ticketno]
 	(let [res (api-req "ticket.get" [ticketno])]
-	 	(if (res 0) {:id (res 0) :time_created (res 1) :time_changed (res 2) :attributes (res 3)}
+	 	(if (res 0) (flatten-result res)
 			{:error "Ticket not found."})))
 
 (defn get-ticket-actions [ticketno]
