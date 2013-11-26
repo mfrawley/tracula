@@ -37,4 +37,7 @@
 (defn get-current-timestamp-str []
 	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now)))
 
+(defn json-datetime-to-str [dt-map]
+	((dt-map "__jsonclass__") 1))
+
 (defn jsonify [value] (json/write-str value))
