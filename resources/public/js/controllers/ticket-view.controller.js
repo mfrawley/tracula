@@ -4,13 +4,13 @@ Tracula.TicketViewController = Ember.Controller.extend({
     actions: {
         contentEditableFieldDidChange : function(obj) {
             var ticket = Ember.Object.create(this.get('ticket'));
-            var attrs = Ember.Object.create(ticket.get('attributes'));
+
             if(obj['id'] == 'summary') {
-                attrs.set('summary', obj['value']);
+                ticket.set('summary', obj['value']);
             } else if(obj['id'] == 'description') {
-                attrs.set('description', obj['value']);
+                ticket.set('description', obj['value']);
             }
-            ticket.set('attributes', attrs);
+
             console.log(ticket);
         }
     },
@@ -30,7 +30,7 @@ Tracula.TicketViewController = Ember.Controller.extend({
     },
     description : function() {
         var ticket = this.get('ticket');
-        var desc = ticket.attributes.description;
+        var desc = ticket.description;
         desc = desc.replaceAll('\n', "<br>");
         // desc = desc.replaceAll('{{{', "<font style=\"font-family:\'Courier\'\">");
         // desc = desc.replaceAll('}}}', "</font>");
@@ -45,8 +45,8 @@ Tracula.TicketViewController = Ember.Controller.extend({
     created : function() {
         var ticket = this.get('ticket');
         var created = '';
-        if (ticket && ticket.time_created) {
-            var created = ticket.time_created['__jsonclass__'][1];
+        if (ticket.time_created) {
+            var created = ticket.time_created;
             ticket.created = created;
             this.set('ticket', ticket);
         }
