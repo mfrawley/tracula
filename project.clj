@@ -10,19 +10,21 @@
   				[ring "1.2.1"]
   				[compojure "1.1.6"]
   				[prismatic/dommy "0.1.1"]
-  				[org.clojure/clojurescript "0.0-2030"]
+          
+  				;[org.clojure/clojurescript "0.0-2030"]
           ; [clj-style "1.0.1"]
   ]
-:cljsbuild {
-	:builds [{
-		; The path to the top-level ClojureScript source directory:
-      	:source-paths ["client"]
-      	; The standard ClojureScript compiler options:
-      	; (See the ClojureScript compiler documentation for details.)
-      	:compiler {
-        	:output-to "resources/public/js/app.js"
-        	:optimizations :simple
-        	:pretty-print true
-    	}
-    }]
-})
+; :cljsbuild {
+; 	:builds [{
+; 		; The path to the top-level ClojureScript source directory:
+;       	:source-paths ["client"]
+;       	; The standard ClojureScript compiler options:
+;       	; (See the ClojureScript compiler documentation for details.)
+;       	:compiler {
+;         	:output-to "resources/public/js/app.js"
+;         	:optimizations :simple
+;         	:pretty-print true
+;     	}
+;     }]
+; }
+)

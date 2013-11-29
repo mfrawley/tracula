@@ -5,6 +5,9 @@
 	(let [[dtime, author, field, oldvalue, newvalue, permanent] changelog-arr]
 	{:time dtime :author author :field field :oldvalue oldvalue :newvalue newvalue :permanent permanent}))
 
+(defn ticket-result-to-hash [res]
+	{:id (res 0) :time_created (json-datetime-to-str (res 1)) :time_changed (json-datetime-to-str (res 2)) :attributes (res 3)})
+
 (defn flatten-ticket-result [res]
 	(let [flat {:id (res 0) :time_created (json-datetime-to-str (res 1)) :time_changed (json-datetime-to-str (res 2)) }]
 		(conj flat (res 3))))
@@ -16,6 +19,11 @@
 	(api-req "system.methodHelp" [method]))
 
 ;;ticket methods
+(defn get-ticket-hash [ticketno]
+	(let [res (api-req "ticket.get" [ticketno])]
+	 	(if (res 0) (ticket-result-to-hash res)
+			{:error "Ticket not found."})))
+
 (defn get-ticket [ticketno]
 	(let [res (api-req "ticket.get" [ticketno])]
 	 	(if (res 0) (flatten-ticket-result res)
@@ -35,8 +43,12 @@
 (defn get-ticket-changelog [ticketno]
 	 (map hashify-changelog-entry (api-req "ticket.changeLog" [ticketno])))
 
-(defn update-ticket [ticketno commentstr action notify]
-	(let [notify false action "done" attrs {:_ts (get-current-timestamp-str) :action "done"}]
+(defn update-ticket [ticketno commentstr action]
+	(let [notify false attrs {:_ts (get-current-timestamp-str) :action action}]
+	(api-req "ticket.update" [ticketno commentstr attrs])))
+
+(defn resolve-ticket [ticketno commentstr resolution]
+	(let [attrs (conj (get-ticket-hash ticketno) {:action resolution})]
 	(api-req "ticket.update" [ticketno commentstr attrs])))
 
 (defn create-ticket [summary description]
