@@ -41,3 +41,24 @@
 	((dt-map "__jsonclass__") 1))
 
 (defn jsonify [value] (json/write-str value))
+
+(defn hashify-changelog-entry [changelog-arr]
+	(let [[dtime, author, field, oldvalue, newvalue, permanent] changelog-arr]
+	{:time dtime :author author :field field :oldvalue oldvalue :newvalue newvalue :permanent permanent}))
+
+(defn ticket-result-to-hash [res]
+	{:id (res 0) :time_created (json-datetime-to-str (res 1)) :time_changed (json-datetime-to-str (res 2)) :attributes (res 3)})
+
+(defn ticket-attributes [ticket-hash]
+	(:attributes ticket-hash))
+
+(defn flatten-ticket-result [res]
+	(let [flat {:id (res 0) :time_created (json-datetime-to-str (res 1)) :time_changed (json-datetime-to-str (res 2)) }]
+		(conj flat (res 3))))
+
+(defn parse-action-input-fields [fields]
+	{:name (fields 0) :value (fields 1) :options (fields 2)})
+
+(defn parse-actions [fields]
+	(let [res {:action (fields 0) :label (fields 1) :hints (fields 2)}]
+		(if (fields 3) (conj res {:input-fields (map parse-action-input-fields (fields 3))})) ))

@@ -31,4 +31,9 @@
 					(is (integer? new-ticket-id))
 					(is (= delete-res-id 0))))
 
+	(deftest test-get-ticket-components
+		(let [res (get-ticket-components)]
+			(is (vector? res)
+			(is (> (count res) 0)))))
+
 )
