@@ -1,4 +1,4 @@
-(ns tracula.core
+	(ns tracula.core
 	(:use [tracula.routes]))
 
 (require '[tracula.config :as config])
@@ -11,7 +11,14 @@
 
 
 (defn -main []
-	(defonce server (jetty/run-jetty (handler/site approutes) {:port config/port :join? false}))
+	(defonce server (jetty/run-jetty (handler/site approutes) {
+		:port config/port
+		:join? false
+		; :ssl? true
+		; :keystore "keystore/server.key"
+		; :key-password "kludger"
+		; :client-auth :want
+		}))
 	)
 
 (defn restart-server []

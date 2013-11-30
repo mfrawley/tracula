@@ -44,9 +44,12 @@
 	 	(if (res 0) (flatten-ticket-result res)
 			{:error "Ticket not found."})))
 
+(defn get-ticket-actions-raw [ticketno]
+	(api-req "ticket.getActions" [ticketno]))
+
 (defn get-ticket-actions [ticketno]
-	(let [res (api-req "ticket.getActions" [ticketno])]
-	(if res (map parse-actions res))))
+	(let [res (get-ticket-actions-raw ticketno)]
+	(if res (map parse-actions res)))	)
 
 (defn get-ticket-changelog [ticketno]
 	 (map hashify-changelog-entry (api-req "ticket.changeLog" [ticketno])))
@@ -64,9 +67,20 @@
 	(let [attrs (conj (get-ticket-attributes ticketno) attrs)]
 	(api-req "ticket.update" [ticketno commentstr attrs])))
 
+(defn update-ticket-attr [ticketno attr-hash]
+	(let [commentstr (str "Updated attributes " attr-hash) attrs (conj (get-ticket-attributes ticketno) attr-hash)]
+	; (print (keys attrs))
+	(api-req "ticket.update" [ticketno commentstr attrs])))
+
 ;convenience setters for individual attrs
 (defn add-ticket-comment [ticketno commentstr]
 	(update-ticket-attrs ticketno commentstr {}))
+
+(defn update-ticket-summary [ticketno summary]
+	(update-ticket-attrs ticketno (str "Updated Summary to " summary) {:summary summary}))
+
+(defn update-ticket-description [ticketno description]
+	(update-ticket-attrs ticketno (str "Updated Description to " description) {:description description}))
 
 (defn update-ticket-component [ticketno component]
 	(update-ticket-attrs ticketno (str "Updated Component to " component) {:component component}))
@@ -77,6 +91,14 @@
 (defn update-ticket-priority [ticketno priority]
 	(update-ticket-attrs ticketno (str "Updated Priority to " priority) {:priority priority}))
 
+(defn update-ticket-keywords [ticketno keywords]
+	(update-ticket-attrs ticketno (str "Updated Keywords to " keywords) {:keywords keywords}))
+
+(defn update-ticket-owner [ticketno owner]
+	(update-ticket-attr ticketno {:owner owner :action "reassign"}))
+
+(defn update-ticket-resolution [ticketno resolution]
+	(update-ticket-attr ticketno {:action "resolve" :resolution resolution}))
 
 (defn create-ticket [summary description]
 	(let [notify false attributes {}]
