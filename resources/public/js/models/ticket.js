@@ -1,6 +1,21 @@
 Tracula.Ticket = DS.Model.extend({
-    id: DS.attr('integer'),
-    owner: DS.attr('string'),
-    summary: DS.attr('string'),
-    isCompleted: DS.attr('boolean')
+	cc: DS.attr('string'),
+	reporter: DS.attr('string'),
+	blockedby: DS.attr('string'),
+	priority: DS.attr('string'),
+	timeChanged: DS.attr('string'),
+	summary: DS.attr('string'),
+	keywords: DS.attr('string'),
+	resolution: DS.attr('string'),
+	milestone: DS.attr('string'),
+	status: DS.attr('string'),
+	owner: DS.attr('string'),
+	blocking: DS.attr('string'),
+	dueDate: DS.attr('string'),
+	timeCreated: DS.attr('string'),
+	type: DS.attr('string'),
+	description: DS.attr('string'),
+	id: DS.attr('integer'),
+	component: DS.attr('string'),
+	_ts: DS.attr('string')
 });
