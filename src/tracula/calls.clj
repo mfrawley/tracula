@@ -98,7 +98,7 @@
 	(update-ticket-attr ticketno {:owner owner :action "reassign"}))
 
 (defn update-ticket-resolution [ticketno resolution]
-	(update-ticket-attr ticketno {:action "resolve" :resolution resolution}))
+	(update-ticket-attr ticketno {:action resolution :resolution resolution}))
 
 (defn create-ticket [summary description]
 	(let [notify false attributes {}]
