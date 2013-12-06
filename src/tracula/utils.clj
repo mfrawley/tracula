@@ -11,7 +11,7 @@
                           #(clojure.string/upper-case (second %1))))
 
 (defn camelize-keys [hash-map]
-	(into {}  (for [[k v] hash-map] [(camelize k) v])))
+	(into {}  (for [[k v] hash-map] [(camelize (str k)) v])))
 
 (defn format-ts-for-json [datetime-str]
 	{"__jsonclass__" ["datetime" datetime-str] })
@@ -49,7 +49,7 @@
 	((dt-map "__jsonclass__") 1))
 
 (defn jsonify [value]
-	(camelize-keys (json/write-str value)))
+	(json/write-str value))
 
 (defn hashify-changelog-entry [changelog-arr]
 	(let [[dtime, author, field, oldvalue, newvalue, permanent] changelog-arr]

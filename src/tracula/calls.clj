@@ -41,7 +41,7 @@
 
 (defn get-ticket [ticketno]
 	(let [res (api-req "ticket.get" [ticketno])]
-	 	(if (res 0) (flatten-ticket-result res)
+	 	(if (res 0) {"ticket" (flatten-ticket-result res)}
 			{:error "Ticket not found."})))
 
 (defn get-ticket-actions-raw [ticketno]
