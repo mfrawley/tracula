@@ -3,7 +3,9 @@ Tracula.TicketViewController = Ember.Controller.extend({
     searchQuery: Ember.computed.alias('controllers.application.searchQuery'),
     actions: {
         contentEditableFieldDidChange : function(obj) {
-            var ticket = Ember.Object.create(this.get('ticket'));
+            // var store = this.store;
+            var ticket = this.get('ticket');
+            console.log(ticket)
 
             if(obj['id'] == 'summary') {
                 ticket.set('summary', obj['value']);
@@ -11,7 +13,7 @@ Tracula.TicketViewController = Ember.Controller.extend({
                 ticket.set('description', obj['value']);
             }
 
-            console.log(ticket);
+            ticket.save();
         }
     },
     replaceWikiLinks : function (s) {
@@ -30,6 +32,7 @@ Tracula.TicketViewController = Ember.Controller.extend({
     },
     description : function() {
         var ticket = this.get('ticket');
+        console.log(ticket);
         var desc = ticket.description;
         desc = desc.replaceAll('\n', "<br>");
         // desc = desc.replaceAll('{{{', "<font style=\"font-family:\'Courier\'\">");
