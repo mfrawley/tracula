@@ -36,4 +36,6 @@
 			(is (vector? res)
 			(is (> (count res) 0)))))
 
+	(deftest test-add-comment
+		(let [res (add-ticket-comment)]
 )

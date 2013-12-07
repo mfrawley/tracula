@@ -20,6 +20,7 @@
 	(compcore/GET "/api/tickets/fields" [] (jsonify (get-ticket-fields)))
 	(compcore/GET "/api/tickets/components" [] (jsonify (get-components)))
 	(compcore/GET "/api/tickets/:id" [id] (jsonify (get-ticket (read-string id))))
+	(compcore/GET "/api/tickets/:id/raw" [id] (jsonify (get-ticket (read-string id))))
 	(compcore/GET "/api/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
 	(compcore/GET "/api/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))
 

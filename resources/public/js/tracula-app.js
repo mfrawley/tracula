@@ -6,11 +6,8 @@ Tracula.Store = DS.Store.extend({
     revision: 12
 });
 
-Tracula.Ticket = DS.Model.extend({
-    id: DS.attr('integer'),
-    owner: DS.attr('string'),
-    summary: DS.attr('string'),
-    isCompleted: DS.attr('boolean')
+DS.RESTAdapter.reopen({
+  namespace: 'api'
 });
 
 Tracula.Router.map(function() {
