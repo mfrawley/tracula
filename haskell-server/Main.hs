@@ -1,13 +1,25 @@
 {-# LANGUAGE OverloadedStrings #-}
-import Web.Scotty
+import qualified Web.Scotty as S
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+import Text.Blaze.Html.Renderer.Text as T
+--import qualified Tracula.IndexView
+blaze = S.html . T.renderHtml
 
-main = scotty 3000 $ do
-  get "/" $ do
-    json (["hello world"] :: [String])
+main = S.scotty 3000 $ do
+  S.get "/" $ do
+    --blaze Tracula.IndexView.render
+    blaze $ do
+      H.docTypeHtml $ do
+        H.head $ do
+          H.title "Miaow"
+        H.body $ do
+          H.h1 "My todo list"
+          H.div "" H.! A.class_ "ds"
 
-  get "/tickets/:id" $ do
-    id <- param "id"
-    json ([id] :: [Int])
+  S.get "/tickets/:id" $ do
+    id <- S.param "id"
+    S.json ([id] :: [Int])
 
-  notFound $ do
-    text "there is no such route."
+  S.notFound $ do
+    S.text "there is no such route."
