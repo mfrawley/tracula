@@ -1,10 +1,8 @@
-(ns hello-cljs.core)
-; (use 'domina)
+(ns hello-cljs.core
+  (:use [domina :only [by-id log]]
+        [domina.css :only [sel]]
+        [domina.events :only [listen!]]))
 
-(defn foo [a b]
-  (+ a b))
 
-; (defn get-id [id]
-; 	(sel (str "#" id )))
-
-; (. js/console (log (get-id "main"))
+(listen! (by-id "main") :click 
+  (fn [evt] (log "button clicked!")))
