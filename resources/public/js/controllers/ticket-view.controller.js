@@ -4,16 +4,20 @@ Tracula.TicketViewController = Ember.Controller.extend({
     actions: {
         contentEditableFieldDidChange : function(obj) {
             // var store = this.store;
-            var ticket = this.get('ticket');
-            console.log(ticket)
+            var ticket = this.get('ticket').item;
 
             if(obj['id'] == 'summary') {
                 ticket.set('summary', obj['value']);
             } else if(obj['id'] == 'description') {
                 ticket.set('description', obj['value']);
             }
-
-            ticket.save();
+            // if(obj['id'] == 'summary') {
+            //     ticket.summary = obj['value'];
+            // } else if(obj['id'] == 'description') {
+            //     ticket.description = obj['value'];
+            // }
+            var model = Tracula.Ticket.create({item: ticket})
+            model.save();
         }
     },
     replaceWikiLinks : function (s) {
@@ -32,21 +36,14 @@ Tracula.TicketViewController = Ember.Controller.extend({
     },
     description : function() {
         var ticket = this.get('ticket');
-        console.log(ticket);
+
         var desc = ticket.description;
         desc = desc.replaceAll('\n', "<br>");
-        // desc = desc.replaceAll('{{{', "<font style=\"font-family:\'Courier\'\">");
-        // desc = desc.replaceAll('}}}', "</font>");
-        // desc = desc.replaceAll('=== ', "<h3>");
-        // desc = desc.replaceAll(' ===', "</h3>");
-        // desc = desc.replaceAll('\\[\\[BR\\]\\]', "<br>");
-        // desc = this.replaceBold(desc);
-        // desc = this.replaceWikiLinks(desc);
         this.set('searchQuery', ticket.id);
         return desc;
     }.property('ticket'),
     created : function() {
-        var ticket = this.get('ticket');
+        var ticket = this.get('ticket').get('item');
         var created = '';
         if (ticket.time_created) {
             var created = ticket.time_created;

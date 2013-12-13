@@ -46,7 +46,7 @@
 
 (defn get-ticket [ticketno]
 	(let [res (api-req "ticket.get" [ticketno])]
-	 	(if (res 0) {"ticket" (flatten-ticket-result res)}
+	 	(if (res 0) (flatten-ticket-result res)
 			{:error "Ticket not found."})))
 
 (defn get-ticket-actions-raw [ticketno]
@@ -74,9 +74,9 @@
 
 (defn update-ticket-attr [ticketno attr-hash]
 	(let [
-		commentstr (str "Updated attributes " attr-hash) 
+		commentstr (str "Updated attributes " attr-hash)
 		attrs (conj (get-ticket-attributes ticketno) attr-hash)]
-	
+
 	(api-req "ticket.update" [ticketno commentstr attrs])))
 
 ;convenience setters for individual attrs

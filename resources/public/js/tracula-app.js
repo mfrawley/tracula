@@ -1,19 +1,19 @@
 Tracula = Ember.Application.create();
-Tracula.ApplicationAdapter = DS.RESTAdapter.extend({
-  namespace: 'api'
-});
+// Tracula.ApplicationAdapter = DS.RESTAdapter.extend({
+//   namespace: 'api'
+// });
 
 Tracula.wikiUrl = 'https://svn.jimdo-server.com/trac/wiki/';
 Tracula.baseUrl = 'http://'+window.location.host;
 
-Tracula.Store = DS.Store.extend({
-    revision: 12,
-    adapter: 'Tracula.ApplicationAdapter'
-});
+// Tracula.Store = DS.Store.extend({
+//     revision: 12,
+//     adapter: 'Tracula.ApplicationAdapter'
+// });
 
-DS.RESTAdapter.reopen({
-  namespace: 'api'
-});
+// DS.RESTAdapter.reopen({
+//   namespace: 'api'
+// });
 
 Tracula.Router.map(function() {
     // this.route("ticket");
