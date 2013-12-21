@@ -1,6 +1,7 @@
 (ns tracula.client
-	[goog.dom :as dom]
-  [goog.events :as events])
+  (:use [domina :only [by-id log]]
+        [domina.css :only [sel]]
+        [domina.events :only [listen!]]))
 
-(defn ^:export greet [n]
-  (str "Hello world sdf" n))
+(listen! (by-id "main") :click 
+  (fn [evt] (log "button clicked!")))
