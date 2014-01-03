@@ -14,7 +14,7 @@
 
 <link href="static/css/bootflat-extensions.css" rel="stylesheet" media="screen">
 <link href="static/css/bootflat-square.css" rel="stylesheet" media="screen">
-
+  
 </head>
 
 <style>
@@ -26,30 +26,26 @@
   }
 </style>
 
-<body >
-<script type="text/x-handlebars">
+<body>
 
 <nav class="navbar navbar-default" role="navigation">
-  <form name="search" action="/search" class="form-inline" role="form" id="search_form" {{action "searchFormSubmit" on="submit"}}>
+  <form name="search" action="/search" class="form-inline" role="form" id="search_form" action="searchFormSubmit" on="submit">
   <div class="form-group">
     <label class="sr-only" for="ticket_search">Search trac</label>
-    {{input type="search" value=searchQuery placeholder="Search trac" class="form-control input-lg"}}
+    <input type="search" value="" placeholder="Search trac" class="form-control input-lg"/>
   </div>
     <button type="submit" class="btn btn-success"> Search</button>
-    <button id="create-ticket" class="btn primary" {{action "openCreateTicketAction"}}>Create</button>
+    <button id="create-ticket" class="btn primary" action="createTicket">Create</button>
   </form>
-
-
 </nav>
 
-<div class="container">
-{{outlet}}
+<div id="container">
+Some text
 </div>
 
 <footer class="container pull-right" >
 <small>Cobbled together with Ember.js & Clojure</small>
 </footer>
-</script>
 
 <script type="text/x-handlebars" data-template-name="ticket/view">
   {{#if ticket}}
@@ -118,10 +114,10 @@
 
 <script src="static/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-var CLOSURE_NO_DEPS = true;
+<script>
+// var CLOSURE_NO_DEPS = true;
 </script>
-<script src="/static/js/base.js" type="text/javascript"></script>
+
 <script src="/static/js/app.js" type="text/javascript"></script>
 
 </body>

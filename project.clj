@@ -11,8 +11,7 @@
   				[ring "1.2.1"]
   				[compojure "1.1.6"]
   				[prismatic/dommy "0.1.1"]
-          [org.clojure/clojurescript "0.0-2080"]
-          
+          [org.clojure/clojurescript "0.0-2067"]
           [domina "1.0.2"]
   ]
 :cljsbuild {
@@ -21,12 +20,13 @@
       	:source-paths ["client"]
       	; The standard ClojureScript compiler options:
       	; (See the ClojureScript compiler documentation for details.)
+        :notify-command ["terminal-notifier" "-message"]
       	:compiler {
+          ; :output-dir "resources/public/js/"
         	:output-to "resources/public/js/app.js"
-        	:optimizations :none
-        	:pretty-print true
-          :source-map true
-    	}
+        	:optimizations :whitespace
+          :source-maps true
+    	 }
     }]
 }
 )
