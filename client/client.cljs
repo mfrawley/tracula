@@ -18,7 +18,7 @@
   (component (fn []
     (this-as this
       (dom.nav #js {:className "navbar navbar-default" :role "navigation"}
-        (dom.form #js {:name "search" :action "/search" :class "form-inline" :role "form" :id "search_form" }
+        (dom.form #js {:name "search" :action "/search" :className "form-inline" :role "form" :id "search_form" }
           (dom.div #js {:className "form-group"}
             (dom.label #js {:className "sr-only" :for "ticket_search"} "Search trac")
             (dom.input #js {:className "form-control input-lg" :type "search" :placeHolder "Search Trac"} )

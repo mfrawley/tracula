@@ -22656,7 +22656,7 @@ tracula.client.component = function component(renderFn) {
 };
 tracula.client.NavBar = tracula.client.component.call(null, function() {
   var this$ = this;
-  return tracula.client.dom.nav.call(null, {"role":"navigation", "className":"navbar navbar-default"}, tracula.client.dom.form.call(null, {"id":"search_form", "role":"form", "class":"form-inline", "action":"/search", "name":"search"}, tracula.client.dom.div.call(null, {"className":"form-group"}, tracula.client.dom.label.call(null, {"for":"ticket_search", "className":"sr-only"}, "Search trac"), tracula.client.dom.input.call(null, {"placeHolder":"Search Trac", "type":"search", "className":"form-control input-lg"})), 
+  return tracula.client.dom.nav.call(null, {"role":"navigation", "className":"navbar navbar-default"}, tracula.client.dom.form.call(null, {"id":"search_form", "role":"form", "className":"form-inline", "action":"/search", "name":"search"}, tracula.client.dom.div.call(null, {"className":"form-group"}, tracula.client.dom.label.call(null, {"for":"ticket_search", "className":"sr-only"}, "Search trac"), tracula.client.dom.input.call(null, {"placeHolder":"Search Trac", "type":"search", "className":"form-control input-lg"})), 
   tracula.client.dom.button.call(null, {"id":"search_btn", "className":"btn btn-success", "type":"submit"}, "Search"), tracula.client.dom.button.call(null, {"id":"create-ticket", "className":"btn primary", "type":"submit"}, "Create")));
 });
 React.renderComponent(tracula.client.NavBar.call(null, {}), document.getElementById("container"));
