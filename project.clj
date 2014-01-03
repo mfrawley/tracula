@@ -11,8 +11,7 @@
   				[ring "1.2.1"]
   				[compojure "1.1.6"]
   				[prismatic/dommy "0.1.1"]
-          [org.clojure/clojurescript "0.0-2067"]
-          [domina "1.0.2"]
+          [org.clojure/clojurescript "0.0-2120"]
   ]
 :cljsbuild {
 	:builds [{
