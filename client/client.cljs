@@ -1,53 +1,33 @@
 (ns tracula.client)
-
+  
 (defn log [str]
   (.log js/console str))
 
-; (defn widget [data]
-;   (om/component
-;     (dom/div nil "Hello world!")))
-
-; (om/root {} widget (.getElementById js/document "container"))
-
+;local helpers
 (def dom js/React.DOM)
+
+(def app-state {
+  :loaded true
+  })
 
 ; Create the ReactJS object (which contains a standard js literal obj with a :render key)
 (defn component [renderFn] 
   (js/React.createClass #js {:render renderFn}))
 
-
-(def comments-data [{:author "Pete Hunt" :text "This is a comment."}
-                    {:author "Jordan Walke" :text "This is *another* coment"}])
-
-; (def NavBar
-;   component )
-(def Comment
+(def NavBar
   (component (fn []
-                  (this-as this
-                           (let [comment (.. this -props -comment)]
-                             (dom.div
-                              (:className "comment")
-                              (dom.h2 nil  (:author comment))
-                              (dom.span nil (:text comment))))))))
-
-(def CommentList 
-  (component (fn []
-                  (this-as this
-                           (dom.div
-                            (:className "commentList")
-                            (into-array
-                             (map #(Comment (:comment %))
-                                  (.. this -props -comments))))))))
-
-(def CommentBox
-  (component (fn []
-                  (this-as this
-                           (dom.div
-                            #js {:className "commentBox"}
-                            (dom.h1 nil "Comments")
-                            (CommentList #js {:comments
-                                              (.. this -props -comments)}))))))
+    (this-as this
+      (dom.nav #js {:className "navbar navbar-default" :role "navigation"}
+        (dom.form #js {:name "search" :action "/search" :class "form-inline" :role "form" :id "search_form" }
+          (dom.div #js {:className "form-group"}
+            (dom.label #js {:className "sr-only" :for "ticket_search"} "Search trac")
+            (dom.input #js {:className "form-control input-lg" :type "search" :placeHolder "Search Trac"} )
+            )
+          (dom.button #js {:type "submit" :className "btn btn-success" :id "search_btn"} "Search")
+          (dom.button #js {:type "submit" :className "btn primary" :id "create-ticket"} "Create")
+          ))))))
 
 (js/React.renderComponent
- (CommentBox #js {:comments comments-data})
+  (NavBar #js {})
+ ; (CommentBox #js {:comments comments-data})
  (.getElementById js/document "container")) 
