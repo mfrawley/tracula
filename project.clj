@@ -25,6 +25,7 @@
         	:output-to "resources/public/js/app.js"
         	:optimizations :whitespace
           :source-maps true
+          :pretty-print true
     	 }
     }]
 }

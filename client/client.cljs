@@ -9,38 +9,44 @@
 
 ; (om/root {} widget (.getElementById js/document "container"))
 
+(def dom js/React.DOM)
+
+; Create the ReactJS object (which contains a standard js literal obj with a :render key)
+(defn component [renderFn] 
+  (js/React.createClass #js {:render renderFn}))
+
+
 (def comments-data [{:author "Pete Hunt" :text "This is a comment."}
                     {:author "Jordan Walke" :text "This is *another* coment"}])
 
+; (def NavBar
+;   component )
 (def Comment
-  (js/React.createClass
-   #js {:render (fn []
+  (component (fn []
                   (this-as this
                            (let [comment (.. this -props -comment)]
-                             (js/React.DOM.div
-                              #js {:className "comment"}
-                              (js/React.DOM.h2 nil  (:author comment))
-                              (js/React.DOM.span nil (:text comment))))))}))
+                             (dom.div
+                              (:className "comment")
+                              (dom.h2 nil  (:author comment))
+                              (dom.span nil (:text comment))))))))
 
 (def CommentList 
-  (js/React.createClass
-   #js {:render (fn []
+  (component (fn []
                   (this-as this
-                           (js/React.DOM.div
-                            #js {:className "commentList"}
+                           (dom.div
+                            (:className "commentList")
                             (into-array
-                             (map #(Comment #js {:comment %})
-                                  (.. this -props -comments))))))}))
+                             (map #(Comment (:comment %))
+                                  (.. this -props -comments))))))))
 
 (def CommentBox
-  (js/React.createClass
-   #js {:render (fn []
+  (component (fn []
                   (this-as this
-                           (js/React.DOM.div
+                           (dom.div
                             #js {:className "commentBox"}
-                            (js/React.DOM.h1 nil "Comments")
+                            (dom.h1 nil "Comments")
                             (CommentList #js {:comments
-                                              (.. this -props -comments)}))))}))
+                                              (.. this -props -comments)}))))))
 
 (js/React.renderComponent
  (CommentBox #js {:comments comments-data})

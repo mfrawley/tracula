@@ -22649,21 +22649,25 @@ goog.require("cljs.core");
 tracula.client.log = function log(str) {
   return console.log(str);
 };
+tracula.client.dom = React.DOM;
+tracula.client.component = function component(renderFn) {
+  return React.createClass({"render":renderFn});
+};
 tracula.client.comments_data = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "author", "author", 3902543101), "Pete Hunt", new cljs.core.Keyword(null, "text", "text", 1017460895), "This is a comment."], null), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "author", "author", 3902543101), "Jordan Walke", new cljs.core.Keyword(null, "text", "text", 1017460895), "This is *another* coment"], 
 null)], null);
-tracula.client.Comment = React.createClass({"render":function() {
+tracula.client.Comment = tracula.client.component.call(null, function() {
   var this$ = this;
   var comment = this$.props.comment;
-  return React.DOM.div({"className":"comment"}, React.DOM.h2(null, (new cljs.core.Keyword(null, "author", "author", 3902543101)).cljs$core$IFn$_invoke$arity$1(comment)), React.DOM.span(null, (new cljs.core.Keyword(null, "text", "text", 1017460895)).cljs$core$IFn$_invoke$arity$1(comment)));
-}});
-tracula.client.CommentList = React.createClass({"render":function() {
+  return tracula.client.dom.div.call(null, (new cljs.core.Keyword(null, "className", "className", 1004015509)).cljs$core$IFn$_invoke$arity$1("comment"), tracula.client.dom.h2.call(null, null, (new cljs.core.Keyword(null, "author", "author", 3902543101)).cljs$core$IFn$_invoke$arity$1(comment)), tracula.client.dom.span.call(null, null, (new cljs.core.Keyword(null, "text", "text", 1017460895)).cljs$core$IFn$_invoke$arity$1(comment)));
+});
+tracula.client.CommentList = tracula.client.component.call(null, function() {
   var this$ = this;
-  return React.DOM.div({"className":"commentList"}, cljs.core.into_array.call(null, cljs.core.map.call(null, function(p1__5557_SHARP_) {
-    return tracula.client.Comment.call(null, {"comment":p1__5557_SHARP_});
+  return tracula.client.dom.div.call(null, (new cljs.core.Keyword(null, "className", "className", 1004015509)).cljs$core$IFn$_invoke$arity$1("commentList"), cljs.core.into_array.call(null, cljs.core.map.call(null, function(p1__7014_SHARP_) {
+    return tracula.client.Comment.call(null, (new cljs.core.Keyword(null, "comment", "comment", 1964302801)).cljs$core$IFn$_invoke$arity$1(p1__7014_SHARP_));
   }, this$.props.comments)));
-}});
-tracula.client.CommentBox = React.createClass({"render":function() {
+});
+tracula.client.CommentBox = tracula.client.component.call(null, function() {
   var this$ = this;
-  return React.DOM.div({"className":"commentBox"}, React.DOM.h1(null, "Comments"), tracula.client.CommentList.call(null, {"comments":this$.props.comments}));
-}});
+  return tracula.client.dom.div.call(null, {"className":"commentBox"}, tracula.client.dom.h1.call(null, null, "Comments"), tracula.client.CommentList.call(null, {"comments":this$.props.comments}));
+});
 React.renderComponent(tracula.client.CommentBox.call(null, {"comments":tracula.client.comments_data}), document.getElementById("container"));
