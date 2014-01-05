@@ -25,7 +25,7 @@
           ; :output-dir "resources/public/js/"
         	:output-to "resources/public/js/app.js"
         	:optimizations :whitespace
-          :source-maps true
+          ; :source-map "app.js.map"
           :pretty-print true
     	 }
     }]

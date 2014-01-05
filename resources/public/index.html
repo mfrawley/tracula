@@ -24,25 +24,28 @@
   [contenteditable=true]:hover {
     border: 1px dotted gray;
   }
+
+  #navbar input, button {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+  #container{
+    margin: auto;
+    width: 950px;
+  }
 </style>
 
 <body>
+<!--Nav bar gets created here -->
+<div id="navbar">
+</div>
 
-<!-- <nav class="navbar navbar-default" role="navigation">
-  <form name="search" action="/search" class="form-inline" role="form" id="search_form" action="searchFormSubmit" on="submit">
-  <div class="form-group">
-    <label class="sr-only" for="ticket_search">Search trac</label>
-    <input type="search" value="" placeholder="Search trac" class="form-control input-lg"/>
-  </div>
-    <button type="submit" class="btn btn-success"> Search</button>
-    <button id="create-ticket" class="btn primary" action="createTicket">Create</button>
-  </form>
-</nav> -->
-
+<!--Page content goes here -->
 <div id="container">
 Some text
 </div>
 
+<!--Page footer goes here -->
 <footer class="container pull-right" >
 <small>Cobbled together with Ember.js & Clojure</small>
 </footer>
@@ -112,6 +115,6 @@ Some text
 <script src="static/js/bootstrap.min.js"></script>
 <script src="static/bower_components/react/react.min.js"></script>
 <script src="/static/js/app.js" type="text/javascript"></script>
-
+<!-- <script src="/static/js/tracula.js" type="text/javascript"></script>  -->
 </body>
 </html>

@@ -1,11 +1,42 @@
 (def replace-bold (s)
-  (s.replace /\'\'\'([\w\:\s\t]+)\'\'\'/ig  
+  (s.replace /\'\'\'([\w\'\s\t]+)\'\'\'/ig  
     (lambda (g, l) (+ "<b>" l "</b>"))))
 
 (def replace-wiki-links (s)
     (s.replace /\[(.*?)\]/g 
         (lambda (m, l) 
-            (var p (l.split /\:/))
+            (var p (l.split /\'/))
             (var linkBase (p 0))
             (var linkPage (p 1))
             (+ "<a href=\"" Tracula.wikiUrl linkPage "\">" linkPage "</a>"))))
+
+
+;local helpers
+(var dom React.DOM)
+
+(def log (str)
+  (console.log  str))
+
+; Create the ReactJS object (which contains a standard js literal obj with a 'render key)
+(def component (renderFn)
+  (React.createClass {'render renderFn}))
+
+(var app-state {
+  'search "foolio"
+  })
+
+(def NavBar ()
+  (component 
+    (lambda ()
+      (dom.nav {'className "navbar navbar-default" 'role "navigation"}
+        (dom.form  {'name "search" 'action "/search" 'className "form-inline" 'role "form" 'id "search_form" }
+          (dom.div  {'className "form-group"}
+            (dom.label  {'className "sr-only" 'for "ticket_search"} "Search trac")
+            (dom.input  {'className "form-control input-lg" 'type "search" 'placeHolder "Search Trac"} ))
+          (dom.button  {'type "submit" 'className "btn btn-success" 'id "search_btn"} "Search")
+          (dom.button  {'type "submit" 'className "btn primary" 'id "create-ticket"} "Create")
+          )))))
+
+(React.renderComponent
+  (NavBar {})
+  (document.getElementById "navbar")) 
