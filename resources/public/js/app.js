@@ -22644,49 +22644,44 @@ cljs.core.special_symbol_QMARK_ = function special_symbol_QMARK_(x) {
   "recur", "recur", -1532142362, null), null, new cljs.core.Symbol(null, ".", ".", -1640531481, null), null, new cljs.core.Symbol(null, "ns", "ns", -1640528002, null), null, new cljs.core.Symbol(null, "do", "do", -1640528316, null), null, new cljs.core.Symbol(null, "fn*", "fn*", -1640430053, null), null, new cljs.core.Symbol(null, "throw", "throw", -1530191713, null), null, new cljs.core.Symbol(null, "letfn*", "letfn*", 1548249632, null), null, new cljs.core.Symbol(null, "js*", "js*", -1640426054, 
   null), null, new cljs.core.Symbol(null, "defrecord*", "defrecord*", 774272013, null), null, new cljs.core.Symbol(null, "let*", "let*", -1637213400, null), null, new cljs.core.Symbol(null, "loop*", "loop*", -1537374273, null), null, new cljs.core.Symbol(null, "try", "try", -1640416396, null), null, new cljs.core.Symbol(null, "if", "if", -1640528170, null), null, new cljs.core.Symbol(null, "def", "def", -1640432194, null), null], null), null), x);
 };
-goog.provide("tracula.client");
+goog.provide("tracula.utils");
 goog.require("cljs.core");
-tracula.client.log = function log(str) {
+tracula.utils.log = function log(str) {
   return console.log(str);
 };
-tracula.client.dom = React.DOM;
-tracula.client.component = function component(renderFn) {
+goog.provide("tracula.react");
+goog.require("cljs.core");
+tracula.react.dom = React.DOM;
+tracula.react.render_component = React.renderComponent;
+tracula.react.get_id = function get_id(id) {
+  return document.getElementById(id);
+};
+tracula.react.component = function component(renderFn) {
   return React.createClass({"render":renderFn});
 };
-tracula.client.app_state = {"search":"foolio"};
-tracula.client.sdiv = function sdiv(className, body) {
-  return tracula.client.dom.div.call(null, {"className":className}, body);
+tracula.react.sdiv = function sdiv(className, body) {
+  return tracula.react.dom.div.call(null, {"className":className}, body);
 };
-tracula.client.submit_button = function submit_button(bname, bclass, bid) {
-  return tracula.client.dom.button.call(null, {"id":bid, "className":bclass, "type":"submit"}, bname);
+tracula.react.submit_button = function submit_button(bname, bclass, bid) {
+  return tracula.react.dom.button.call(null, {"id":bid, "className":bclass, "type":"submit"}, bname);
 };
-tracula.client.NavBar = tracula.client.component.call(null, function() {
+goog.provide("tracula.components.navbar");
+goog.require("cljs.core");
+goog.require("tracula.react");
+goog.require("tracula.react");
+tracula.components.navbar.NavBar = tracula.react.component.call(null, function() {
   var this$ = this;
   var search = this$.props.search;
-  return tracula.client.dom.nav.call(null, {"role":"navigation", "className":"navbar navbar-default"}, tracula.client.dom.form.call(null, {"id":"search_form", "role":"form", "className":"form-inline", "action":"/search", "name":"search"}, tracula.client.dom.div.call(null, {"className":"form-group"}, tracula.client.dom.label.call(null, {"for":"ticket_search", "className":"sr-only"}, "Search trac"), tracula.client.dom.input.call(null, {"value":search, "placeHolder":"Search Trac", "type":"search", "className":"form-control input-lg"})), 
-  tracula.client.submit_button.call(null, "Search", "btn btn-success", "search_btn"), tracula.client.submit_button.call(null, "Create", "btn primary", "create-ticket")));
+  return tracula.react.dom.nav.call(null, {"role":"navigation", "className":"navbar navbar-default"}, tracula.react.dom.form.call(null, {"id":"search_form", "role":"form", "className":"form-inline", "action":"/search", "name":"search"}, tracula.react.dom.div.call(null, {"className":"form-group"}, tracula.react.dom.label.call(null, {"for":"ticket_search", "className":"sr-only"}, "Search trac"), tracula.react.dom.input.call(null, {"value":search, "placeHolder":"Search Trac", "type":"search", "className":"form-control input-lg"})), 
+  tracula.react.submit_button.call(null, "Search", "btn btn-success", "search_btn"), tracula.react.submit_button.call(null, "Create", "btn primary", "create-ticket")));
 });
-tracula.client.TicketViewHeaders = function() {
-  var fields = new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, ["type", "priority", "status", "owner", "reporter", "component"], null);
-  return tracula.client.component.call(null, function() {
-    var this$ = this;
-    return tracula.client.dom.div.call(null, {"className":"row"}, tracula.client.sdiv.call(null, "col-md-1", [cljs.core.str("Type:")].join("")), tracula.client.sdiv.call(null, "col-md-1", [cljs.core.str("Priority:")].join("")), tracula.client.sdiv.call(null, "col-md-1", [cljs.core.str("Status:")].join("")), tracula.client.sdiv.call(null, "col-md-1", [cljs.core.str("Owner:")].join("")), tracula.client.sdiv.call(null, "col-md-1", [cljs.core.str("Reported by:")].join("")), tracula.client.sdiv.call(null, 
-    "col-md-1", [cljs.core.str("Component:")].join("")));
-  });
-}();
-tracula.client.TicketViewTitle = tracula.client.component.call(null, function() {
-  var this$ = this;
-  return tracula.client.sdiv.call(null, "row", tracula.client.sdiv.call(null, "col-md-8", tracula.client.sdiv.call(null, "page-header", tracula.client.dom.h1.call(null, {"contentEditable":"true"}, "sample title", tracula.client.dom.small.call(null, null, "Created: 2014-23-23")))));
-});
-tracula.client.TicketViewDesc = tracula.client.component.call(null, function() {
-  var this$ = this;
-  var description = "some desc\n and another line";
-  tracula.client.dom.hr.call(null, null, null);
-  return tracula.client.dom.div.call(null, {"className":"row"}, tracula.client.dom.label.call(null, {"for":"description"}, "Description"), tracula.client.dom.div.call(null, {"contentEditable":"true", "id":"description", "className":"col-md-12"}, description));
-});
-tracula.client.TicketView = tracula.client.component.call(null, function() {
-  var this$ = this;
-  return tracula.client.dom.div.call(null, null, tracula.client.TicketViewTitle.call(null), tracula.client.TicketViewHeaders.call(null), tracula.client.TicketViewDesc.call(null));
-});
-React.renderComponent(tracula.client.NavBar.call(null, tracula.client.app_state), document.getElementById("navbar"));
-React.renderComponent(tracula.client.TicketView.call(null, tracula.client.app_state), document.getElementById("container"));
+goog.provide("tracula.client");
+goog.require("cljs.core");
+goog.require("tracula.components.navbar");
+goog.require("tracula.components.navbar");
+goog.require("tracula.utils");
+goog.require("tracula.utils");
+goog.require("tracula.react");
+goog.require("tracula.react");
+goog.provide("tracula.ticketview");
+goog.require("cljs.core");
