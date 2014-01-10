@@ -1,5 +1,5 @@
 (ns tracula.client)
-  (:require-macros [tracula.coremacros :as mac])
+
 ; (:require   [om.core :as om :include-macros true]
   ;             [om.dom :as dom :include-macros true])
 
@@ -10,10 +10,10 @@
 (def dom js/React.DOM)
 
 ; Create the ReactJS object (which contains a standard js literal obj with a :render key)
-(defn component [renderFn] 
+(defn component [renderFn]
   (js/React.createClass #js {:render renderFn}))
 
-(def app-state 
+(def app-state
   #js {:search "foolio"})
 
 (defn sdiv [className body]
@@ -23,8 +23,8 @@
 (defn submit-button [bname bclass bid]
   (dom.button #js {:type "submit" :className bclass :id bid} bname))
 
-(def NavBar 
-  (component 
+(def NavBar
+  (component
     (fn []
     (this-as this
       (let [search (.. this -props -search)]
@@ -34,8 +34,7 @@
             (dom.label #js {:className "sr-only" :for "ticket_search"} "Search trac")
             (dom.input #js {:className "form-control input-lg" :type "search" :placeHolder "Search Trac" :value search} ))
           (submit-button "Search" "btn btn-success" "search_btn")
-          (submit-button "Create" "btn primary" "create-ticket")
-          )))))))
+          (submit-button "Create" "btn primary" "create-ticket"))))))))
 
 
 (def TicketViewHeaders
@@ -50,18 +49,27 @@
         (sdiv "col-md-1" (str "Component:" ) )))))))
 
 (def TicketViewTitle
-  (component (fn [] (this-as this 
+  (component (fn [] (this-as this
     (sdiv "row"
       (sdiv "col-md-8"
         (sdiv "page-header"
           (dom.h1 #js {:contentEditable "true"} "sample title"
             (dom.small nil "Created: 2014-23-23")))))))))
 
+(def TicketViewDesc
+	(component (fn [] (this-as this
+		(let [description "some desc\n and another line"]
+		(dom.hr nil nil)
+    (dom.div #js {:className "row"}
+      (dom.label #js {:for "description"} "Description")
+      (dom.div #js {:className "col-md-12" :id "description" :contentEditable "true"} description)))))))
+
 (def TicketView
-  (component (fn [] (this-as this 
+  (component (fn [] (this-as this
     (dom.div nil
     (TicketViewTitle)
     (TicketViewHeaders)
+    (TicketViewDesc)
     )))))
 
 (js/React.renderComponent
@@ -70,4 +78,4 @@
 
 (js/React.renderComponent
   (TicketView app-state)
- (.getElementById js/document "container")) 
+ (.getElementById js/document "container"))
