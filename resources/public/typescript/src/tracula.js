@@ -15,7 +15,7 @@ var TicketViewTitle = React.createClass({
 		<div className="row">
       <div className="col-md-8">
         <div className="page-header">
-          <h1 id="summary" contentEditable="true"> <small>{s.id}</small>{s.title}</h1>
+          <h1 id="summary" contentEditable="true"> <small>{this.props.id}</small>{this.props.title}</h1>
           <small>Created:{s.created}</small>
         </div>
       </div>
@@ -34,6 +34,14 @@ var TicketViewInfo = React.createClass( {
       owner : '',
       reporter : '',
       component : ''
+    }
+  },
+  componentWillMount : function() {
+    console.log('componentWillMount');
+    if(this.state.data) {
+      console.log(this.state.data);
+    } else {
+      console.log('no data');
     }
   },
   render: function() {
@@ -55,11 +63,11 @@ var TicketView  = React.createClass( {
   render: function() {
     return (
       <div>
-        <TicketViewTitle />
+        <TicketViewTitle id={this.props.id} title={this.props.title}/>
         <TicketViewInfo />
       </div>
       )
   }
 });
 
-React.renderComponent(TicketView(), document.getElementById('container'));
+React.renderComponent(<TicketView id={3} title="sdfdsf" />, document.getElementById('container'));
