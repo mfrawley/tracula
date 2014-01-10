@@ -1,4 +1,4 @@
-	(ns tracula.core
+(ns tracula.core
 	(:use [tracula.routes]))
 
 (require '[tracula.config :as config])
