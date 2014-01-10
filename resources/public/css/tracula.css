@@ -1,0 +1,15 @@
+[contenteditable=true] {
+  border: 1px solid white;
+}
+[contenteditable=true]:hover {
+  border: 1px dotted gray;
+}
+
+#navbar input, button {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+#container{
+  margin: auto;
+  width: 950px;
+}
