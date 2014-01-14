@@ -9,9 +9,8 @@ var NavBar  = React.createClass( {
     if(isNaN(searchNum)) {
       console.log('Numbers only at the moment, thanks');
     } else {
-      $.get('http://localhost:8080/api/tickets/'+search, function(data) {
-        console.log(data);
-        this.setState({data: data});
+      $.getJSON('http://localhost:8080/api/tickets/'+search, function(data) {
+        Tracula.sendEvent('ticketLoaded', data);
       }.bind(this));
     }
   },
@@ -33,5 +32,6 @@ var NavBar  = React.createClass( {
       )
   }
 });
+
 
 React.renderComponent(NavBar(), document.getElementById('navbar'));
