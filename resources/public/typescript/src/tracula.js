@@ -17,7 +17,7 @@ Tracula.createEvent = function(name, detail) {
 
 Tracula.sendEvent = function(name, detail) {
   var evt = Tracula.createEvent(name, detail);
-  document.dispatchEvent(name, evt);
+  document.dispatchEvent(evt);
 }
 
 React.renderComponent(<TicketView id="" title="" />, document.getElementById('container'));

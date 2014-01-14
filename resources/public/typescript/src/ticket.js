@@ -4,9 +4,9 @@
 var TicketViewTitle = React.createClass({
   getInitialState: function() {
     return {
-      title: 'Sample title',
-      created : 'sometime in the past',
-      id : '23434'
+      title: '',
+      created : '',
+      id : ''
     };
   },
   render: function () {
@@ -44,13 +44,6 @@ var TicketViewInfo = React.createClass( {
       console.log('no data');
     }
   },
-  componentDidMount : function() {
-    console.log('componentDidMount');
-    document.addEventListener('ticketLoaded', function(data) {
-      console.log(data);
-      this.setState(data);
-    });
-  },
   render: function() {
     var s = this.state;
     return (
@@ -67,10 +60,18 @@ var TicketViewInfo = React.createClass( {
 });
 
 var TicketView  = React.createClass( {
+  componentDidMount : function() {
+    var that = this;
+    document.addEventListener('ticketLoaded', function(evt) {
+      var data = evt.detail;
+      console.log(data);
+      that.setState(data);
+    });
+  },
   render: function() {
     return (
       <div>
-        <TicketViewTitle id={this.props.id} title={this.props.title}/>
+        <TicketViewTitle id={this.state.id} title={this.state.title}/>
         <TicketViewInfo />
       </div>
       )
