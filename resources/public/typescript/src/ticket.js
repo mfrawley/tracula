@@ -39,13 +39,21 @@ var TicketViewInfo = React.createClass( {
   render: function() {
     var s = this.props;
     return (
-      <div className="row">
-        <div className="col-md-1">Type: {s.type}</div>
-        <div className="col-md-1">Priority: {s.priority}</div>
-        <div className="col-md-1">Status: {s.status}</div>
-        <div className="col-md-1">Owner: {s.owner}</div>
-        <div className="col-md-1">Reported by: {s.reporter}</div>
-        <div className="col-md-1">Component: {s.component}</div>
+      <div>
+        <div className="row">
+          <div className="col-md-1">Type: {s.type}</div>
+          <div className="col-md-1">Priority: {s.priority}</div>
+          <div className="col-md-1">Status: {s.status}</div>
+          <div className="col-md-1">Owner: {s.owner}</div>
+          <div className="col-md-1">Reported by: {s.reporter}</div>
+          <div className="col-md-1">Component: {s.component}</div>
+        </div>
+        <div className="row">
+          <label htmlFor="description">Description</label>
+          <div className="col-md-12" id="description" contentEditable="true">
+          {s.description}
+          </div>
+        </div>
       </div>
       );
   }
