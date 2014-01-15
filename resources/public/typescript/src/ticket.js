@@ -36,14 +36,6 @@ var TicketViewInfo = React.createClass( {
       component : ''
     }
   },
-  componentWillMount : function() {
-    
-    if(this.state.data) {
-      console.log(this.state.data);
-    } else {
-      console.log('no data');
-    }
-  },
   render: function() {
     var s = this.props;
     return (
