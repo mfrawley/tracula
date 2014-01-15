@@ -45,7 +45,7 @@ var TicketViewInfo = React.createClass( {
     }
   },
   render: function() {
-    var s = this.state;
+    var s = this.props;
     return (
       <div className="row">
         <div className="col-md-1">Type: {s.type}</div>
@@ -64,16 +64,19 @@ var TicketView  = React.createClass( {
     var that = this;
     document.addEventListener('ticketLoaded', function(evt) {
       var data = evt.detail;
+      console.log('data');
       console.log(data);
       that.setState(data);
     });
   },
   render: function() {
-    return (
-      <div>
-        <TicketViewTitle id={this.state.id} title={this.state.title}/>
-        <TicketViewInfo />
-      </div>
-      )
+    var s = {};
+    if(this.state) {
+       s = this.state;
+    }
+    return React.DOM.div(null, 
+        TicketViewTitle(s),
+        TicketViewInfo(s)
+      );
   }
 });
