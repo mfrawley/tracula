@@ -10,13 +10,13 @@ var TicketViewTitle = React.createClass({
     };
   },
   render: function () {
-    var s = this.state;
+    var p = this.props;
     return (
     <div className="row">
       <div className="col-md-8">
         <div className="page-header">
-          <h1 id="summary" contentEditable="true">{this.props.title} <small>{this.props.id}</small></h1>
-          <small>Created:{s.created}</small>
+          <h1 id="summary" contentEditable="true">{p.summary} <small>{p.id}</small></h1>
+          <small>Created:{p.time_created}</small>
         </div>
       </div>
     </div>
