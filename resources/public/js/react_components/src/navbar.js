@@ -9,12 +9,7 @@ var NavBar  = React.createClass( {
     if(isNaN(searchNum)) {
       console.log('Numbers only at the moment, thanks');
     } else {
-      $.getJSON('http://localhost:8080/api/tickets/'+search, function(data) {
-        Tracula.Event.sendEvent('ticketLoaded', data);
-        // console.log('push it real good')
-        // history.pushState(data, data.summary, '/ticket/'+searchNum);
-        Tracula.History.pushState('/ticket/'+searchNum);
-      }.bind(this));
+      Tracula.Api.Ticket.get(searchNum);
     }
   },
   handleSearchChange : function(e) {
