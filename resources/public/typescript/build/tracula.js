@@ -6,7 +6,7 @@ Tracula = {};
 */
 Tracula.createEvent = function(name, detail) {
   return new CustomEvent(
-    name, 
+    name,
     {
       detail: detail,
       bubbles: true,
@@ -20,6 +20,16 @@ Tracula.sendEvent = function(name, detail) {
   document.dispatchEvent(evt);
 }
 
+Tracula.pushState = function(url) {
+  window.location.hash = url;
+}
+
 React.renderComponent(TicketView( {id:"", title:""} ), document.getElementById('container'));
 
+//init routes
+var routes = new routes();
 
+routes.get("/ticket/:id", function(req) {
+  console.log(req);
+  console.log("State popped for ticket view");
+});

@@ -50,7 +50,7 @@ var TicketViewInfo = React.createClass( {
         </div>
         <div className="row">
           <label htmlFor="description">Description</label>
-          <div className="col-md-12" id="description" contentEditable="true">
+          <div className="col-md-12" id="description" contentEditable="false">
           {s.description}
           </div>
         </div>
@@ -70,13 +70,14 @@ var TicketView  = React.createClass( {
     });
   },
   render: function() {
-    var s = {};
     if(this.state) {
-       s = this.state;
-    }
-    return React.DOM.div(null, 
+      s = this.state;
+      return React.DOM.div(null,
         TicketViewTitle(s),
         TicketViewInfo(s)
       );
+    } else {
+      return React.DOM.div(null);
+    }
   }
 });

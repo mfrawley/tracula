@@ -11,6 +11,9 @@ var NavBar  = React.createClass( {
     } else {
       $.getJSON('http://localhost:8080/api/tickets/'+search, function(data) {
         Tracula.sendEvent('ticketLoaded', data);
+        // console.log('push it real good')
+        // history.pushState(data, data.summary, '/ticket/'+searchNum);
+        Tracula.pushState('/ticket/'+searchNum);
       }.bind(this));
     }
   },
