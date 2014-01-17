@@ -13,7 +13,7 @@ Tracula.Event = {
   	);
 	},
 	sendEvent : function(name, detail) {
-  	var evt = Tracula.createEvent(name, detail);
+  	var evt = this.createEvent(name, detail);
   	document.dispatchEvent(evt);
 	}
 }
