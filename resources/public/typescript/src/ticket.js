@@ -77,7 +77,7 @@ var TicketView  = React.createClass( {
         TicketViewInfo(s)
       );
     } else {
-      return React.DOM.div(null);
+      return (<div></div>)
     }
   }
 });

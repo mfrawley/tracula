@@ -30,5 +30,6 @@
 	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
 	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))
 	(route/resources "/static" {:root "public"})
-	(route/not-found "Not Found")
+	; (route/not-found "Not Found")
+	(route/not-found (resp/resource-response "index.html" {:root "public"}))
  )
