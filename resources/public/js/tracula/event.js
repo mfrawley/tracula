@@ -15,5 +15,8 @@ Tracula.Event = {
 	sendEvent : function(name, detail) {
   	var evt = this.createEvent(name, detail);
   	document.dispatchEvent(evt);
+	},
+	addListener : function(name, func) {
+    document.addEventListener(name, func);
 	}
 }

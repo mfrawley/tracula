@@ -50,7 +50,7 @@ var TicketViewInfo = React.createClass( {
         </div>
         <div className="row">
           <label htmlFor="description">Description</label>
-          <div className="col-md-12" id="description" contentEditable="false">
+          <div className="col-md-12" id="description" contentEditable="true">
           {s.description}
           </div>
         </div>
@@ -62,7 +62,7 @@ var TicketViewInfo = React.createClass( {
 var TicketView  = React.createClass( {
   componentDidMount : function() {
     var that = this;
-    document.addEventListener('ticketLoaded', function(evt) {
+    Tracula.Event.addListener('ticketLoaded', function(evt) {
       var data = evt.detail;
       console.log('data');
       console.log(data);

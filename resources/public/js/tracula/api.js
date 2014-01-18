@@ -19,7 +19,7 @@ Tracula.Api.Ticket = {
 		Tracula.Api.get('tickets/'+id, function(data) {
       Tracula.Event.sendEvent('ticketLoaded', data);
       // history.pushState(data, data.summary, '/ticket/'+searchNum);
-      Tracula.History.pushState(data, data.summary, '/ticket/'+id);
+
       if (callback) {
       	callback(data);
       }
