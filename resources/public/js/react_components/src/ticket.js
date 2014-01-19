@@ -13,7 +13,7 @@ var TicketViewTitle = React.createClass({
     var p = this.props;
     return (
     <div className="row">
-      <div className="col-md-8">
+      <div className="col-md-12">
         <div className="page-header">
           <h1 id="summary" contentEditable="true">{p.summary} <small>{p.id}</small></h1>
           <small>Created:{p.time_created}</small>
@@ -69,15 +69,16 @@ var TicketViewInfo = React.createClass( {
     } else {
       return (
       <div>
+      <TicketViewActions updated={this.state.updated} />
         <div className="row">
           <div className="col-md-1">Type: {p.type}</div>
           <div className="col-md-1">Priority: {p.priority}</div>
           <div className="col-md-1">Status: {p.status}</div>
           <div className="col-md-1">Owner: {p.owner}</div>
-          <div className="col-md-1">Reported by: {p.reporter}</div>
-          <div className="col-md-1">Component: {p.component}</div>
+          <div className="col-md-2">Reported by: {p.reporter}</div>
+          <div className="col-md-2">Component: {p.component}</div>
         </div>
-        <TicketViewActions updated={this.state.updated} />
+        
         <div className="row">
           <label htmlFor="description">Description</label>
           <pre className="col-md-12" id="description" contentEditable="true" onInput={this.inputChanged}>
