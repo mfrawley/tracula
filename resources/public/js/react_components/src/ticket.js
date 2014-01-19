@@ -24,38 +24,70 @@ var TicketViewTitle = React.createClass({
   }
  });
 
+var TicketViewActions = React.createClass( {
+  cancelAction : function() {
+    this.setState({updated : false});
+  },
+  render : function() {
+    if(this.props.updated) {
+      return (
+        <div className="row" >
+        <button type="button" class="btn btn-primary" onClick={this.cancelAction}>Cancel</button>
+        <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      )
+    } else {
+      return (
+      <div className="row">
+      </div>
+      )  
+    }
+    
+  }
+});
+
 var TicketViewInfo = React.createClass( {
 
   getInitialState: function() {
     return {
-      type: '',
-      priority : '',
-      status : '',
-      owner : '',
-      reporter : '',
-      component : ''
+      updated : false
+    }
+  },
+  inputChanged: function(e) {
+    console.log('inputChanged');
+    console.log(e);
+    if (!e.metaKey) {
+      return this.setState({updated: true});
     }
   },
   render: function() {
-    var s = this.props;
-    return (
+    var p = this.props;
+    if (!p) {
+      return (
+        <div></div>
+      );
+    } else {
+      return (
       <div>
         <div className="row">
-          <div className="col-md-1">Type: {s.type}</div>
-          <div className="col-md-1">Priority: {s.priority}</div>
-          <div className="col-md-1">Status: {s.status}</div>
-          <div className="col-md-1">Owner: {s.owner}</div>
-          <div className="col-md-1">Reported by: {s.reporter}</div>
-          <div className="col-md-1">Component: {s.component}</div>
+          <div className="col-md-1">Type: {p.type}</div>
+          <div className="col-md-1">Priority: {p.priority}</div>
+          <div className="col-md-1">Status: {p.status}</div>
+          <div className="col-md-1">Owner: {p.owner}</div>
+          <div className="col-md-1">Reported by: {p.reporter}</div>
+          <div className="col-md-1">Component: {p.component}</div>
         </div>
+        <TicketViewActions updated={this.state.updated} />
         <div className="row">
           <label htmlFor="description">Description</label>
-          <div className="col-md-12" id="description" contentEditable="true">
-          {s.description}
-          </div>
+          <pre className="col-md-12" id="description" contentEditable="true" onInput={this.inputChanged}>
+            {p.description}
+          </pre>
         </div>
       </div>
-      );
+      );  
+    }
+    
   }
 });
 
