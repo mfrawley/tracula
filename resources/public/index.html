@@ -31,22 +31,6 @@
 <small>Mark Frawley</small>
 </footer>
 
-<script type="text/x-handlebars" data-template-name="ticket/create">
-<h1>Create Ticket</h1>
-<form method="create_ticket" id="create_ticket_form" {{action createTicket on="submit"}}>
-  <div class="form-group">
-    <label for="summary">Title/Summary</label>
-    {{input value=summary name="summary" class="form-control"  id="summary"}}
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    {{textarea value=description name="description" rows="3" class="form-control"}}
-  </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-  </div>
-</form>
-</script>
-
 <!-- JS libs -->
 <script src="/static/bower_components/jquery/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
@@ -67,7 +51,9 @@
 <script src="/static/js/react_components/build/ticket/ticket.info.js"></script>
 <script src="/static/js/react_components/build/ticket/ticket.title.js"></script>
 <script src="/static/js/react_components/build/ticket/ticket.view.js"></script>
+<script src="/static/js/react_components/build/ticket/ticket.create.js"></script>
 <script src="/static/js/react_components/build/ticket.js"></script>
+
 
 <!-- Release the beast -->
 <script src="/static/js/tracula/core.js"></script>

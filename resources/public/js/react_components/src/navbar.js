@@ -29,6 +29,9 @@ var NavBar  = React.createClass( {
   handleSearchChange : function(e) {
     this.setState({search: e.target.value});
   },
+  createTicketAction : function() {
+    console.log('createTicketAction');
+  },
   render: function() {
     return (
       <nav className="navbar navbar-default" role="navigation">
@@ -38,8 +41,9 @@ var NavBar  = React.createClass( {
           <input className="form-control input-lg" type="search" placeholder="Search" onChange={this.handleSearchChange} value={this.state.search} />
         </div>
         <button type="submit" className="btn btn-success" id="search_btn">Search</button>
-        <button type="submit" className="btn btn-success" id="create_ticket_btn" >Create</button>
+        <button type="submit" className="btn btn-success form-inline" id="create_ticket_btn" onClick={this.createTicketAction}>Create</button>
         </form>
+
       </nav>
       )
   }

@@ -8,7 +8,7 @@ var TicketTitle = React.createClass({
     <div className="row">
       <div className="col-md-9">
         <div className="page-header">
-          <h1 id="summary" contentEditable="true">{p.summary} <small>{p.id}</small></h1>
+          <h1 id="summary"><span contentEditable="true" id="summary_field">{p.summary}</span> <small>{p.id}</small></h1>
           <small>Created:{p.time_created}</small>
         </div>
       </div>
