@@ -1,2 +1,3 @@
 //Simply instantiate the namespace
-Tracula = {}
+Tracula = {};
+Tracula.Components = {};

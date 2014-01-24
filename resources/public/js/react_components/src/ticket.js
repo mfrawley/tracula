@@ -1,4 +1,6 @@
 
 
 //render even without data
-React.renderComponent(TicketView( {id: '', title:""} ), document.getElementById('container'));
+Tracula.Components.Ticket = function () {
+  React.renderComponent(TicketView( {id: '', title:""} ), document.getElementById('container'));
+};

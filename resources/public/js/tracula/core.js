@@ -4,6 +4,7 @@ var routes = new routes();
 
 routes.get("/ticket/:id", function(req) {
   var id = req.params.id;
+  Tracula.Components.Ticket();
 
   Tracula.Api.Ticket.get(id, function(data) {
   	console.log('data')
@@ -13,4 +14,5 @@ routes.get("/ticket/:id", function(req) {
 
 routes.get("/", function(req) {
   console.log('home');
+  Tracula.Components.Home();
 });
