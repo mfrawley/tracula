@@ -4,13 +4,23 @@ Tracula.Api = {
 		host : 'localhost',
 		port : '8080',
 		pathPrefix : '/api',
+    username : 'mark',
+    password : 'O3xVfe14'
 	},
 	buildUrlForResource: function(res) {
 		var c = this.config;
 		return c.scheme + '://' + c.host + ':' + c.port + c.pathPrefix + '/' + res;
 	},
 	get : function(resource, success) {
-		$.getJSON(this.buildUrlForResource(resource), success);
+    var c = this.config;
+    $.ajax(this.buildUrlForResource(resource), {
+      type : 'GET', 
+      success : success,
+      dataType : 'json',
+      headers : {
+        'Authorization' : 'Basic ' + utf8_to_b64(c.username + ':' + c.password)
+      }
+    });
 	}
 };
 

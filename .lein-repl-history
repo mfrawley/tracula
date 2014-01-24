@@ -454,3 +454,7 @@ git diff
 (defmacro component [] (fn [] (this-as this)))
 (defmacro component [] '(fn [] (this-as this)))
 (macroexpand component)
+(require '[tracula.utils] :reload)
+(tracula.calls/get-ticket 64169)
+(require '[tracula.config] :reload)
+(tracula.calls/get-ticket 64169)

@@ -7,7 +7,7 @@ routes.get("/ticket/:id", function(req) {
   Tracula.Components.Ticket();
 
   Tracula.Api.Ticket.get(id, function(data) {
-  	console.log('data')
+  	
   });
 
 });

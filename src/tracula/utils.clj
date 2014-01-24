@@ -41,7 +41,7 @@
 (defn parse-response [response]
 	(parse-result (parse-body-from-response response)))
 
-(defn api-req [method params]
+(defn api-req [auth method params]
 	(let [req-body (json/write-str {:method method :params params}) ]
 	(println req-body)
 
@@ -51,7 +51,8 @@
 	   :content-type :json
 	   :socket-timeout config/socket-timeout  ;; in milliseconds
 	   :conn-timeout config/conn-timeout    ;; in milliseconds
-	   :accept :json} ))))
+	   :accept :json
+	   :headers {"Authorization" auth}} ))))
 
 (defn get-current-timestamp-str []
 	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now)))
