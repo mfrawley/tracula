@@ -5,6 +5,8 @@
 (require '[compojure.core :as compcore])
 (require '[ring.util.response :as resp])
 (require '[compojure.route :as route])
+(require '[tracula.config :as config])
+
 (compcore/defroutes approutes
 	;;;;;;;;;;;;;;;;;;;;;;;;
 	;todo, put API docs here
@@ -19,10 +21,11 @@
 	;ticket routes
 	(compcore/GET "/api/tickets/fields" [] (jsonify (get-ticket-fields)))
 	(compcore/GET "/api/tickets/components" [] (jsonify (get-components)))
-	
-	(compcore/GET "/api/tickets/:id" {params :params headers :headers} 
-		(println headers) 
-		(jsonify (get-ticket (read-string (params :id)))))
+
+	(compcore/GET "/api/tickets/:id" {params :params headers :headers}
+		(let [auth-header (get-auth headers) id (get-id params)]
+			(jsonify (get-ticket auth-header id))))
+
 	(compcore/GET "/api/tickets/:id/raw" [id] (jsonify (get-ticket (read-string id))))
 	(compcore/GET "/api/tickets/:id/actions" [id] (jsonify (get-ticket-actions (read-string id))))
 	(compcore/GET "/api/tickets/:id/changelog" [id] (jsonify (get-ticket-changelog (read-string id))))

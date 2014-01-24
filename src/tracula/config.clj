@@ -7,3 +7,7 @@
 (def example-ticket 60988)
 
 (def port 8080)
+; (def ^:dynamic auth nil)
+
+; (defn set-auth! [auth-str]
+;   (binding [auth auth-str]))

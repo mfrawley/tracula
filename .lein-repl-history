@@ -458,3 +458,13 @@ git diff
 (tracula.calls/get-ticket 64169)
 (require '[tracula.config] :reload)
 (tracula.calls/get-ticket 64169)
+(defn foo [] (let [a 1]) (fn [] (println a)))
+(defn foo [] (let [a 1] (fn [] (println a))))
+(foo)
+a
+(defn foo [] (let [a 1] (fn [] (print a))))
+(foo)
+(defn foo [] (let [a 1] (fn [] (println (str a)))))
+(foo)
+(defn foo [] (let [a 1] ((fn [] (println (str a))))))
+(foo)

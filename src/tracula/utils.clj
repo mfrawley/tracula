@@ -41,18 +41,19 @@
 (defn parse-response [response]
 	(parse-result (parse-body-from-response response)))
 
-(defn api-req [auth method params]
+(defn api-req [auth-header method params]
 	(let [req-body (json/write-str {:method method :params params}) ]
-	(println req-body)
+		(println req-body)
 
-	(parse-response (client/post config/url
-	  {:basic-auth config/user-creds
-	   :body req-body
-	   :content-type :json
-	   :socket-timeout config/socket-timeout  ;; in milliseconds
-	   :conn-timeout config/conn-timeout    ;; in milliseconds
-	   :accept :json
-	   :headers {"Authorization" auth}} ))))
+		(parse-response (client/post config/url
+		  {
+		  	; :basic-auth config/user-creds
+		   :body req-body
+		   :content-type :json
+		   :socket-timeout config/socket-timeout  ;; in milliseconds
+		   :conn-timeout config/conn-timeout    ;; in milliseconds
+		   :accept :json
+		   :headers {"Authorization" auth-header}} ))))
 
 (defn get-current-timestamp-str []
 	(tformat/unparse (tformat/formatters :date-hour-minute-second) (cltime/now)))
@@ -84,3 +85,8 @@
 	(let [res {:action (fields 0) :label (fields 1) :hints (fields 2)}]
 		(if (fields 3) (conj res {:input-fields (map parse-action-input-fields (fields 3))})) ))
 
+(defn get-auth [headers]
+	(headers "authorization"))
+
+(defn get-id [params]
+	(read-string (params :id)))

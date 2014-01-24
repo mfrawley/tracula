@@ -44,8 +44,8 @@
 	 	(if (res 0) res
 			{:error "Ticket not found."})))
 
-(defn get-ticket [auth ticketno]
-	(let [res (api-req auth "ticket.get" [ticketno])]
+(defn get-ticket [auth-header ticketno]
+	(let [res (api-req auth-header "ticket.get" [ticketno])]
 	 	(if (res 0) (flatten-ticket-result res)
 			{:error "Ticket not found."})))
 
