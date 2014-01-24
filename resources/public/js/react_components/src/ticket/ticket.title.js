@@ -2,22 +2,18 @@
 // var dom = React.DOM;
 
 var TicketTitle = React.createClass({
-  getInitialState: function() {
-    return {
-      title: '',
-      created : '',
-      id : ''
-    };
-  },
   render: function () {
     var p = this.props;
     return (
     <div className="row">
-      <div className="col-md-12">
+      <div className="col-md-9">
         <div className="page-header">
           <h1 id="summary" contentEditable="true">{p.summary} <small>{p.id}</small></h1>
           <small>Created:{p.time_created}</small>
         </div>
+      </div>
+      <div className="col-md-3">
+        <TicketActions updated={p.updated} ticketReverted={p.ticketReverted} />
       </div>
     </div>
     )

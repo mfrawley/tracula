@@ -3,14 +3,6 @@ var TicketInfo = React.createClass( {
 
   getInitialState: function() {
     return {
-      updated : false
-    }
-  },
-  inputChanged: function(e) {
-    console.log('inputChanged');
-    console.log(e);
-    if (!e.metaKey) {
-      return this.setState({updated: true});
     }
   },
   render: function() {
@@ -22,7 +14,6 @@ var TicketInfo = React.createClass( {
     } else {
       return (
       <div>
-      <TicketActions updated={this.state.updated} />
         <div className="row">
           <div className="col-md-1">Type: {p.type}</div>
           <div className="col-md-1">Priority: {p.priority}</div>
@@ -34,7 +25,7 @@ var TicketInfo = React.createClass( {
         
         <div className="row">
           <label htmlFor="description">Description</label>
-          <pre className="col-md-12" id="description" contentEditable="true" onInput={this.inputChanged}>
+          <pre className="col-md-12" id="description" contentEditable="true" onInput={p.ticketChanged}>
             {p.description}
           </pre>
         </div>
