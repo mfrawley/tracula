@@ -5,7 +5,7 @@ var Home  = React.createClass( {
     return (
       <div>
       <h1>Welcome to Castle Tracula!</h1>
-      <p>Tracula will hopefully make your bug tracker easier to use.</p>
+      <p className="lead">Tracula will hopefully make your bug tracker easier to use.</p>
       </div>
     );
   }

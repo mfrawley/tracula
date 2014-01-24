@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-
 var NavBar  = React.createClass( {
   getInitialState : function() {
     return {
@@ -34,7 +33,12 @@ var NavBar  = React.createClass( {
   },
   render: function() {
     return (
-      <nav className="navbar navbar-default" role="navigation">
+      <header className="navbar bs-docs-nav" role="banner">
+      <div className="navbar-header">
+      <a href="/" className="navbar-brand">Home</a>
+      </div>
+      <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        
         <form name="search" action="/search" className="form-inline" role="form" id="search_form" onSubmit={this.handleForm}>
         <div className="form-group">
           <label className="sr-only" htmlFor="ticket_search">Search Trac</label>
@@ -43,8 +47,8 @@ var NavBar  = React.createClass( {
         <button type="submit" className="btn btn-success" id="search_btn">Search</button>
         <button type="submit" className="btn btn-success form-inline" id="create_ticket_btn" onClick={this.createTicketAction}>Create</button>
         </form>
-
       </nav>
+      </header>
       )
   }
 });
