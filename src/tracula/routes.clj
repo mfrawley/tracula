@@ -7,6 +7,12 @@
 (require '[compojure.route :as route])
 (require '[tracula.config :as config])
 
+; All API calls are quite similar and need a common structure to keep
+; things sane
+(defmacro wrap-api [headers call & args]
+	(let [auth-header (get-auth headers)] 
+		`(jsonify (~call ~auth-header ~@args))))
+
 (compcore/defroutes approutes
 	;;;;;;;;;;;;;;;;;;;;;;;;
 	;todo, put API docs here
@@ -14,13 +20,15 @@
 	;;;;;;;;;;;;;;;;;;;;;;
 	; help/utility methods
 	; (compcore/POST "/api/echo" {params :params} (rest-echo params))
-	(compcore/GET "/api/methods" [] (jsonify (list-methods)))
-	(compcore/GET "/api/recent" [] (jsonify (get-recent)))
-	(compcore/GET "/api/help/:method" [method] (get-method-help method))
+	(compcore/GET "/api/methods" {headers :headers} (wrap-api headers list-methods))
+	(compcore/GET "/api/recent" {headers :headers} (wrap-api headers get-recent))
+
+	(compcore/GET "/api/help/:method" {params :params headers :headers} 
+		(wrap-api headers get-method-help (params :method)))
 	;;;;;;;;;;;;;;
 	;ticket routes
-	(compcore/GET "/api/tickets/fields" [] (jsonify (get-ticket-fields)))
-	(compcore/GET "/api/tickets/components" [] (jsonify (get-components)))
+	(compcore/GET "/api/tickets/fields" {headers :headers} (wrap-api headers get-ticket-fields))
+	(compcore/GET "/api/tickets/components" {headers :headers} (wrap-api headers get-components))
 
 	(compcore/GET "/api/tickets/:id" {params :params headers :headers}
 		(let [auth-header (get-auth headers) id (get-id params)]
