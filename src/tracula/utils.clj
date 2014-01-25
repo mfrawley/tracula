@@ -44,7 +44,6 @@
 
 (defn api-req [auth-header method params]
 	(let [req-body (json/write-str {:method method :params params}) ]
-		; (println (str "auth-header" auth-header))
 		; (println req-body)
 
 		(parse-response (client/post config/url

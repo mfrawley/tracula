@@ -13,6 +13,9 @@ routes.get("/ticket/:id", function(req) {
 });
 
 routes.get("/", function(req) {
-  console.log('home');
   Tracula.Components.Home();
+});
+
+routes.get("/login", function(req) {
+  Tracula.Components.Login();
 });

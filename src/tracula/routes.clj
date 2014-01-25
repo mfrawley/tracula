@@ -13,6 +13,11 @@
 	`(let [auth-header# (get-auth ~headers)]
 		(jsonify (~call auth-header# ~@args))))
 
+
+;static routes
+(defmacro index-page []
+	`(resp/resource-response "index.html" {:root "public"}))
+
 (compcore/defroutes approutes
 	;;;;;;;;;;;;;;;;;;;;;;;;
 	;todo, put API docs here
@@ -57,9 +62,9 @@
 
 	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
 
-	;static routes
-	(compcore/GET "/" [] (resp/resource-response "index.html" {:root "public"}))
-	(compcore/GET "/ticket/:id" [] (resp/resource-response "index.html" {:root "public"}))
+	(compcore/GET "/" [] (index-page))
+	(compcore/GET "/ticket/:id" [] (index-page))
+	(compcore/GET "/login" [] (index-page))
 
 	(route/resources "/static" {:root "public"})
 	(route/not-found "Not Found")
