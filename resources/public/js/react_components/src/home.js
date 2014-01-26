@@ -2,12 +2,12 @@
 
 var Home  = React.createClass( {
   render : function() {
+    var dom = React.DOM;
     return (
-      <div>
-      <h1>Welcome to Castle Tracula!</h1>
-      <p className="lead">Tracula will hopefully make your bug tracker easier to use.</p>
-      </div>
-    );
+      dom.div(null, 
+      dom.h1(null, "Welcome to Castle Tracula!"),
+      dom.p( {className:"lead"}, "Tracula will hopefully make your bug tracker easier to use.")
+    ));
   }
 });
 

@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/** @jsx d */
 var NavBar  = React.createClass( {
   getInitialState : function() {
     return {
@@ -32,24 +32,24 @@ var NavBar  = React.createClass( {
     console.log('createTicketAction');
   },
   render: function() {
+    var d = React.DOM;
     return (
-      <header className="navbar-default" role="banner">
-      <div className="navbar-header">
-      <a href="/" className="navbar-brand">Home</a>
-      </div>
-      <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-        
-        <form name="search" action="/search" className="form-inline" role="form" id="search_form" onSubmit={this.handleForm}>
-        <div className="form-group">
-          <label className="sr-only" htmlFor="ticket_search">Search Trac</label>
-          <input className="form-control input-md" type="search" placeholder="Search" onChange={this.handleSearchChange} value={this.state.search} />
-        </div>
-        <button type="submit" className="btn btn-success" id="search_btn">Search</button>
-        <button type="submit" className="btn btn-success form-inline" id="create_ticket_btn" onClick={this.createTicketAction}>Create</button>
-        </form>
-      </nav>
-      </header>
+      d.header( {className:"navbar-default", role:"banner"}, 
+        d.div( {className:"navbar-header"}, 
+          d.a( {href:"/", className:"navbar-brand"}, "Home")
+        ),
+        d.nav( {className:"collapse navbar-collapse bs-navbar-collapse", role:"navigation"}, 
+          d.form( {name:"search", action:"/search", className:"form-inline", role:"form", id:"search_form", onSubmit:this.handleForm}, 
+            d.div( {className:"form-group"}, 
+              d.label( {className:"sr-only", htmlFor:"ticket_search"}, "Search Trac"),
+              d.input( {className:"form-control input-md", type:"search", placeholder:"Search", onChange:this.handleSearchChange, value:this.state.search} )
+            ),
+            d.button( {type:"submit", className:"btn btn-success", id:"search_btn"}, "Search"),
+            d.button( {type:"submit", className:"btn btn-success form-inline", id:"create_ticket_btn", onClick:this.createTicketAction}, "Create")
+          )
+        )
       )
+    )
   }
 });
 

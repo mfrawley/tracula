@@ -1,22 +1,21 @@
-/** @jsx React.DOM */
+/** @jsx d */
 var TicketActions = React.createClass( {
   cancelAction : function(e) {
     console.log('cancelAction');
     this.props.ticketReverted();
   },
   render : function() {
+    var d = React.DOM;
+
     if(this.props.updated) {
       return (
-        <div >
-        <button type="button" className="btn btn-primary" onClick={this.cancelAction}>Cancel</button>
-        <button type="button" className="btn btn-primary">Save</button>
-        </div>
-      )
+        d.div(null , 
+        d.button( {type:"button", className:"btn btn-primary", onClick:this.cancelAction}, "Cancel"),
+        d.button( {type:"button", className:"btn btn-primary"}, "Save")
+        )
+      );
     } else {
-      return (
-      <div >
-      </div>
-      )  
+      return ( d.div(null));
     }
     
   }

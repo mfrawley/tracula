@@ -5,10 +5,14 @@
   border: 1px dotted gray;
 }
 
-.navbar input, button {
+nav button {
   margin-left: 20px;
+}
+
+nav button, nav input {
   margin-top: 5px;
 }
+
 #container{
   margin: auto;
   width: 950px;

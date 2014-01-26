@@ -13,7 +13,6 @@
 	`(let [auth-header# (get-auth ~headers)]
 		(jsonify (~call auth-header# ~@args))))
 
-
 ;static routes
 (defmacro index-page []
 	`(resp/resource-response "index.html" {:root "public"}))

@@ -1,20 +1,32 @@
 /** @jsx React.DOM */
 
 var Login  = React.createClass( {
+  handleSubmit : function(e) {
+    e.preventDefault();
+    var username = document.getElementById('username');
+    var pass = document.getElementById('password');
+    
+  },
   render : function() {
+    var dom = React.DOM;
+    var div = dom.div, form = dom.form, label = dom.label, input = dom.input, h1 = dom.h1
+    button = dom.button;
+    
     return (
-      <div>
-        <form role="form">
-          <div className="form-group">
-            <label for="username">Username</label>
-            <input type="text" className="form-control" id="username" placeHolder="Enter Username" />
-          </div>
-          <div className="form-group">
-            <label for="password">Password</label>
-            <input type="password" className="form-control" id="password" placeHolder="Enter Password" />
-          </div>
-        </form>
-      </div>
+      div(null, 
+        h1(null, "Login"),
+        form( {role:"form", className:"col-md-9", onSubmit:this.handleSubmit, id:"login_form"}, 
+          div( {className:"form-group"}, 
+            label( {htmlFor:"username"}, "Username"),
+            input( {type:"text", className:"form-control", id:"username", placeholder:"Enter Username"} )
+          ),
+          div( {className:"form-group"}, 
+            label( {htmlFor:"password"}, "Password"),
+            input( {type:"password", className:"form-control", id:"password", placeholder:"Enter Password"} )
+          ),
+          button( {type:"submit", className:"btn btn-default"}, "Submit")
+        )
+      )
     );
   }
 });

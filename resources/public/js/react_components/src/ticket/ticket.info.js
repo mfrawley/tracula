@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/** @jsx d */
 var TicketInfo = React.createClass( {
 
   getInitialState: function() {
@@ -6,39 +6,39 @@ var TicketInfo = React.createClass( {
     }
   },
   render: function() {
-    var p = this.props;
+    var p = this.props, d = React.DOM, div = d.div;
     if (!p) {
       return (
-        <div></div>
+        div(null)
       );
     } else {
       return (
-      <div>
-        <div className="row">
-          <div className="col-md-2">Type:</div>
-          <div className="col-md-1">Priority:</div>
-          <div className="col-md-1">Status:</div>
-          <div className="col-md-2">Owner:</div>
-          <div className="col-md-2">Reported by:</div>
-          <div className="col-md-2">Component:</div>
-        </div>
+      div(null, 
+        div( {className:"row"}, 
+          div( {className:"col-md-2"}, "Type:"),
+          div( {className:"col-md-1"}, "Priority:"),
+          div( {className:"col-md-1"}, "Status:"),
+          div( {className:"col-md-2"}, "Owner:"),
+          div( {className:"col-md-2"}, "Reported by:"),
+          div( {className:"col-md-2"}, "Component:")
+        ),
 
-        <div className="row">
-          <div className="col-md-2">{p.type}</div>
-          <div className="col-md-1">{p.priority}</div>
-          <div className="col-md-1">{p.status}</div>
-          <div className="col-md-2">{p.owner}</div>
-          <div className="col-md-2">{p.reporter}</div>
-          <div className="col-md-2">{p.component}</div>
-        </div>
+        div( {className:"row"}, 
+          div( {className:"col-md-2"}, p.type),
+          div( {className:"col-md-1"}, p.priority),
+          div( {className:"col-md-1"}, p.status),
+          div( {className:"col-md-2"}, p.owner),
+          div( {className:"col-md-2"}, p.reporter),
+          div( {className:"col-md-2"}, p.component)
+        ),
         
-        <div className="row">
-          <label htmlFor="description">Description</label>
-          <pre className="col-md-12" id="description" contentEditable="true" onInput={p.ticketChanged}>
-            {p.description}
-          </pre>
-        </div>
-      </div>
+        div( {className:"row"}, 
+          d.label( {htmlFor:"description"}, "Description"),
+          d.pre( {className:"col-md-12", id:"description", contentEditable:"true", onInput:p.ticketChanged}, 
+            p.description
+          )
+        )
+      )
       );  
     }
     
