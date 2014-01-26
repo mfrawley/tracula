@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 //init routes
 var routes = new routes();
 
