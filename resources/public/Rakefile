@@ -1,0 +1,14 @@
+require 'rubygems'
+require 'closure-compiler'
+base_dir = 'js/react_components/src/'
+
+task :default => [:compile]
+task :compile do
+  files = get_all_files(base_dir, 'js')
+  puts files
+  # puts Closure::Compiler.new.compile_files(files)
+end
+
+def get_all_files(dir, ext)
+  Dir["#{dir}/**/*.#{ext}"]
+end
