@@ -9,7 +9,6 @@ task :compile do
   files = process_manifest
   # puts files
   write_compiled_js Closure::Compiler.new(:compilation_level => CLOSURE_OPTIMIZATIONS).compile_files(files)
-
 end
 
 def get_all_files(dir, ext)
