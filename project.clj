@@ -10,9 +10,7 @@
   				[clj-time "0.6.0"]
   				[ring "1.2.1"]
   				[compojure "1.1.6"]
-  				; [prismatic/dommy "0.1.1"]
-          [org.clojure/clojurescript "0.0-2120"]
-          [om "0.1.0"]
+  				[clj-jwt "0.0.4"]
   ]
 :cljsbuild {
 	:builds [{

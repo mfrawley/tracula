@@ -3,24 +3,27 @@
 var Login  = React.createClass( {
   handleSubmit : function(e) {
     e.preventDefault();
-    var username = document.getElementById('username');
-    var pass = document.getElementById('password');
-    
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    console.log('username' + username + 'password' + password);
+    Tracula.Api.Auth.login(username, password, function(data) {
+      console.log(data);
+    });
   },
   render : function() {
     var dom = React.DOM;
-    var div = dom.div, form = dom.form, label = dom.label, input = dom.input, h1 = dom.h1
-    button = dom.button;
-    
+    var div = dom.div, form = dom.form, label = dom.label, input = dom.input, h1 = dom.h1, button = dom.button;
+
     return (
-      div(null, 
+      div(null,
         h1(null, "Login"),
-        form( {role:"form", className:"col-md-9", onSubmit:this.handleSubmit, id:"login_form"}, 
-          div( {className:"form-group"}, 
+        form( {role:"form", className:"col-md-9", onSubmit:this.handleSubmit, id:"login_form"},
+          div( {className:"form-group"},
             label( {htmlFor:"username"}, "Username"),
             input( {type:"text", className:"form-control", id:"username", placeholder:"Enter Username"} )
           ),
-          div( {className:"form-group"}, 
+          div( {className:"form-group"},
             label( {htmlFor:"password"}, "Password"),
             input( {type:"password", className:"form-control", id:"password", placeholder:"Enter Password"} )
           ),

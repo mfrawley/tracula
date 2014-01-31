@@ -14,9 +14,23 @@ Tracula.Api = {
 	get : function(resource, success) {
     var c = this.config;
     $.ajax(this.buildUrlForResource(resource), {
-      type : 'GET', 
+      type : 'GET',
       success : success,
       dataType : 'json',
+      headers : {
+        'Authorization' : 'Basic ' + utf8_to_b64(c.username + ':' + c.password)
+      }});
+  },
+  post : function(resource, data, success) {
+    var c = this.config;
+    $.ajax(this.buildUrlForResource(resource), {
+      type : 'POST',
+      success : success,
+      error : function(data) {
+        console.log(data);
+      },
+      dataType : 'json',
+      data : data,
       headers : {
         'Authorization' : 'Basic ' + utf8_to_b64(c.username + ':' + c.password)
       }
@@ -35,4 +49,18 @@ Tracula.Api.Ticket = {
       }
     });
 	}
+}
+
+Tracula.Api.Auth = {
+  login : function(username, password, callback) {
+    Tracula.Api.post('login', {"username" : username, 'password' : password},
+    function(data) {
+      console.log('loginCompleted');
+      Tracula.Event.sendEvent('loginCompleted', data);
+
+      if (callback) {
+        callback(data);
+      }
+    });
+  }
 }
