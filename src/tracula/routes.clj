@@ -26,9 +26,13 @@
 	; help/utility methods
 	; (compcore/POST "/api/echo" {params :params} (rest-echo params))
 	(compcore/POST "/api/login" {params :params headers :headers session :session}
-		(let [newsession (merge session {:username (params :username) :password (params :password)})]
-		(-> (resp/response (str "Welcome."))
-				(assoc :session newsession))))
+		(let [session (merge session {:username (params :username) :password (params :password)})]
+		(-> (resp/response (jsonify (str "Welcome.")))
+				(assoc :session session))))
+
+	(compcore/GET "/api/loggedin" {params :params headers :headers session :session}
+		(let [loggedin (contains? session :username)]
+		(jsonify {:loggedin loggedin})))
 
 	; (compcore/GET "/api/logout" {headers :headers}
 	; 	(compcore/session-assoc :username nil :password nil)
