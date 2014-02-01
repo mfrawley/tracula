@@ -27,16 +27,16 @@ var TicketView  = React.createClass( {
   },
   render: function() {
     if(this.state) {
-      var props = this.state;
+      var props = this.state, div = React.DOM.div;
       props.ticketChanged = this.ticketChanged;
       props.ticketReverted = this.ticketReverted;
 
-      return React.DOM.div(null,
+      return div(null,
         TicketTitle(props),
         TicketInfo(props)
       );
     } else {
-      return (React.DOM.div(null, null));
+      return (div(null, null));
     }
   }
 });

@@ -5,8 +5,15 @@ var TicketInfo = React.createClass( {
     return {
     }
   },
+  ticketChanged : function(e) {
+    console.log(e);
+
+    this.props.ticketChanged({
+      description : document.getElementByid()
+    });
+  },
   render: function() {
-    var p = this.props, d = React.DOM, div = d.div;
+    var p = this.props, d = React.DOM, div = d.div, pre = d.pre, label = d.label;
     if (!p) {
       return (
         div(null)
@@ -33,8 +40,8 @@ var TicketInfo = React.createClass( {
           ),
           
           div( {className:"row"}, 
-            d.label( {htmlFor:"description"}, "Description"),
-            d.pre( {className:"col-md-12", id:"description", contentEditable:"true", onInput:p.ticketChanged}, 
+            label( {htmlFor:"description"}, "Description"),
+            pre( {className:"col-md-12", id:"description", contentEditable:"true", onInput: this.ticketChanged}, 
               p.description
             )
           )
