@@ -1,7 +1,6 @@
 (ns tracula.routes
 	(:use [tracula.utils])
-	(:use [tracula.calls])
-	(:use [tracula.decorate]))
+	(:use [tracula.calls]))
 
 (require '[compojure.core :as compcore])
 (require '[ring.util.response :as resp])
