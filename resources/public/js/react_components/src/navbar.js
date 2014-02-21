@@ -1,4 +1,6 @@
-/** @jsx d */
+/**
+ * The navigation bar of the app, search, create buttons etc
+**/
 var NavBar  = React.createClass( {
   getInitialState : function() {
     return {
@@ -28,19 +30,21 @@ var NavBar  = React.createClass( {
   handleSearchChange : function(e) {
     this.setState({search: e.target.value});
   },
-  createTicketAction : function() {
+  createTicketAction : function(e) {
+    e.preventDefault();
     console.log('createTicketAction');
+    window.location = '/ticket/create';
   },
   render: function() {
     var d = React.DOM;
     return (
-      d.header( {className:"navbar-default", role:"banner"}, 
-        d.div( {className:"navbar-header"}, 
+      d.header( {className:"navbar-default", role:"banner"},
+        d.div( {className:"navbar-header"},
           d.a( {href:"/", className:"navbar-brand"}, "Home")
         ),
-        d.nav( {className:"collapse navbar-collapse bs-navbar-collapse", role:"navigation"}, 
-          d.form( {name:"search", action:"/search", className:"form-inline", role:"form", id:"search_form", onSubmit:this.handleForm}, 
-            d.div( {className:"form-group"}, 
+        d.nav( {className:"collapse navbar-collapse bs-navbar-collapse", role:"navigation"},
+          d.form( {name:"search", action:"/search", className:"form-inline", role:"form", id:"search_form", onSubmit:this.handleForm},
+            d.div( {className:"form-group"},
               d.label( {className:"sr-only", htmlFor:"ticket_search"}, "Search Trac"),
               d.input( {className:"form-control input-md", type:"search", placeholder:"Search", onChange:this.handleSearchChange, value:this.state.search} )
             ),

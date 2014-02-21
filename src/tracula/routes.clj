@@ -77,6 +77,7 @@
 	(compcore/GET "/" [] (index-page))
 	(compcore/GET "/ticket/:id" [] (index-page))
 	(compcore/GET "/login" [] (index-page))
+	(compcore/GET "/ticket/create" [] (index-page))
 
 	(route/resources "/static" {:root "public"})
 	(route/not-found "Not Found")

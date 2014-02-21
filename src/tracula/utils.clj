@@ -12,17 +12,17 @@
                           #(clojure.string/upper-case (second %1))))
 
 (defn camelize-keys [hash-map]
-	(into {}  
-		(for [[k v] hash-map] 
+	(into {}
+		(for [[k v] hash-map]
 		[
 			(if (keyword? k) (camelize k)
-				(keyword (camelize k))) 
+				(keyword (camelize k)))
 			v
 		]
 	)))
 
-(defn filter-keys [filter-hash exclude-keys] 
-	(into {} (filter (fn [[key val]] 
+(defn filter-keys [filter-hash exclude-keys]
+	(into {} (filter (fn [[key val]]
 		(if (= :a key) key)) {:a 1 :b 2})))
 
 (defn format-ts-for-json [datetime-str]
@@ -48,7 +48,7 @@
 
 		(parse-response (client/post config/url
 		  {
-		  	; :basic-auth config/user-creds
+		   ; :basic-auth []
 		   :body req-body
 		   :content-type :json
 		   :socket-timeout config/socket-timeout  ;; in milliseconds

@@ -9,7 +9,7 @@ var TicketInfo = React.createClass( {
     console.log(e);
 
     this.props.ticketChanged({
-      description : document.getElementByid()
+      description : document.getElementById('description')
     });
   },
   render: function() {
@@ -20,8 +20,8 @@ var TicketInfo = React.createClass( {
       );
     } else {
       return (
-        div(null, 
-          div( {className:"row"}, 
+        div(null,
+          div( {className:"row"},
             div( {className:"col-md-2"}, "Type:"),
             div( {className:"col-md-1"}, "Priority:"),
             div( {className:"col-md-1"}, "Status:"),
@@ -30,7 +30,7 @@ var TicketInfo = React.createClass( {
             div( {className:"col-md-2"}, "Component:")
           ),
 
-          div( {className:"row"}, 
+          div( {className:"row"},
             div( {className:"col-md-2"}, p.type),
             div( {className:"col-md-1"}, p.priority),
             div( {className:"col-md-1"}, p.status),
@@ -38,16 +38,16 @@ var TicketInfo = React.createClass( {
             div( {className:"col-md-2"}, p.reporter),
             div( {className:"col-md-2"}, p.component)
           ),
-          
-          div( {className:"row"}, 
+
+          div( {className:"row"},
             label( {htmlFor:"description"}, "Description"),
-            pre( {className:"col-md-12", id:"description", contentEditable:"true", onInput: this.ticketChanged}, 
+            pre( {className:"col-md-12", id:"description", contentEditable:"true", onInput: this.ticketChanged},
               p.description
             )
           )
         )
-      );  
+      );
     }
-    
+
   }
 });
