@@ -8,7 +8,10 @@ Tracula.Session = {
 		return Tracula.LocalStorage.getItem(key);
 	},
 	loggedIn : function() {
-		return !!this.get('userInfo');
+		return !!this.get('userinfo');
+	},
+	destroy : function() {
+		Tracula.LocalStorage.removeItem('userinfo');
 	}
 };
 
@@ -24,5 +27,8 @@ Tracula.LocalStorage = {
 		if (localStorage.getItem(key)) {
 			return JSON.parse(localStorage[key]);
 		}
+	},
+	removeItem : function(key) {
+		localStorage.removeItem('tracula.' + key);
 	}
 }

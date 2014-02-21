@@ -8,6 +8,7 @@ var TicketView  = React.createClass( {
   componentDidMount : function() {
     var that = this;
     Tracula.Event.addListener('ticketLoaded', function(evt) {
+      console.log('ticketLoaded handler in TicketView');
       var data = evt.detail;
       console.log('data');
       console.log(data);
