@@ -1,25 +1,31 @@
 Tracula.Api = {
 	config : {
-		scheme : 'http',
-		host : 'localhost',
-		port : '8080',
+		protocol : window.location.protocol,
+		host : window.location.host,
 		pathPrefix : '/api',
-    username : 'mark',
-    password : 'O3xVfe14'
+    dataType : 'json'
 	},
+  _createAuthHeaders : function(username, password) {
+    return {
+        'Authorization' : 'Basic ' + utf8_to_b64(username + ':' + password)
+      }
+  },
 	buildUrlForResource: function(res) {
 		var c = this.config;
-		return c.scheme + '://' + c.host + ':' + c.port + c.pathPrefix + '/' + res;
+		var url = c.protocol + '//' + c.host + c.pathPrefix + '/' + res;
+    console.log(url);
+    return url;
 	},
 	get : function(resource, success) {
     var c = this.config;
+    var username = Tracula.Session.get('username');
+    var password = Tracula.Session.get('password');
+
     $.ajax(this.buildUrlForResource(resource), {
       type : 'GET',
       success : success,
-      dataType : 'json',
-      headers : {
-        'Authorization' : 'Basic ' + utf8_to_b64(c.username + ':' + c.password)
-      }});
+      dataType : c.dataType,
+      headers : this._createAuthHeaders(username, password)});
   },
   post : function(resource, data, success) {
     var c = this.config;
@@ -29,11 +35,9 @@ Tracula.Api = {
       error : function(data) {
         console.log(data);
       },
-      dataType : 'json',
+      dataType : c.dataType,
       data : data,
-      headers : {
-        'Authorization' : 'Basic ' + utf8_to_b64(c.username + ':' + c.password)
-      }
+      headers : this._createAuthHeaders(username, password)
     });
 	}
 };
@@ -55,7 +59,7 @@ Tracula.Api.Auth = {
   login : function(username, password, callback) {
     Tracula.Api.post('login', {"username" : username, 'password' : password},
     function(data) {
-      console.log('loginCompleted');
+      Tracula.Session.set({'username' : username, 'password' : password});
       Tracula.Event.sendEvent('loginCompleted', data);
 
       if (callback) {
