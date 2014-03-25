@@ -125,18 +125,6 @@ var routes = function() {
       }
     };
 
-    // Intercept FORM submissions.
-    window.addEventListener("submit", function(e) {
-      if(e.target.method == "post") {
-        if (matchRoute(e.target.action, e)) {
-           e.preventDefault();
-           return false;
-        }
-      }
-      // If we haven't matched a URL let the normal request happen.
-      return true;
-    });
-
     window.addEventListener("popstate", function(e) {
       if(cancelPopstate) {
         cancelPopstate = false;

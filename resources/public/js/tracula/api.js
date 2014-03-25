@@ -18,14 +18,14 @@ Tracula.Api = {
 	},
 	get : function(resource, success) {
     var c = this.config;
-    var username = Tracula.Session.get('username');
-    var password = Tracula.Session.get('password');
+    var userinfo = Tracula.Session.get('userinfo');
+
 
     $.ajax(this.buildUrlForResource(resource), {
       type : 'GET',
       success : success,
       dataType : c.dataType,
-      headers : this._createAuthHeaders(username, password)});
+      headers : this._createAuthHeaders(userinfo.username, userinfo.password)});
   },
   post : function(resource, data, success) {
     var c = this.config;
@@ -59,7 +59,7 @@ Tracula.Api.Auth = {
   login : function(username, password, callback) {
     Tracula.Api.post('login', {"username" : username, 'password' : password},
     function(data) {
-      Tracula.Session.set({'username' : username, 'password' : password});
+      Tracula.Session.set('userinfo', {'username' : username, 'password' : password});
       Tracula.Event.sendEvent('loginCompleted', data);
 
       if (callback) {

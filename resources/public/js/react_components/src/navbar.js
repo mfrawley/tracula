@@ -24,9 +24,9 @@ var NavBar  = React.createClass( {
       console.log('Numbers only at the moment, thanks');
     } else {
       Tracula.Api.Ticket.get(searchNum, function(data) {
-        Tracula.History.pushState(data, data.summary, '/ticket/'+searchNum);
-        console.log('sending event ticketLoaded');
-        Tracula.Event.sendEvent('ticketLoaded', data);
+        // Tracula.History.pushState(data, data.summary, '/ticket/'+searchNum);
+        //should work with popstate
+        Tracula.History.go('/ticket/' + searchNum);
       });
     }
   },
