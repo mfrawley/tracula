@@ -76,13 +76,6 @@
 
 	; (compcore/PUT "/tickets/:id" [id] (jsonify (update-ticket (read-string id) commentstr action notify)))
 
-	(compcore/GET "/" [] (index-page))
-	(compcore/GET "/ticket/create" [] (index-page))
-	(compcore/GET "/ticket/:id" [] (index-page))
-	(compcore/GET "/login" [] (index-page))
-	(compcore/GET "/logout" [] (index-page))
-
-
 	(route/resources "/static" {:root "public"})
 	(route/not-found "Not Found")
  )
