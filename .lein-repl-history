@@ -1,6 +1,3 @@
-(require '[clj-http.client :as client])
-(list-methods)
-(get-ticket-actions)
 reload
 (get-ticket-actions)
 (get-ticket-actions 60998)
@@ -498,3 +495,6 @@ a
 (print-claim claim)
 (use '[tracula.token] :reload)
 (print-claim claim)
+(use '[tracula.routes] :reload)
+(use '[tracula.route] :reload)
+(use '[tracula.routes] :reload)

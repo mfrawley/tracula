@@ -1,2 +1,0 @@
-Tracula = {};
-Tracula.Components = {};

@@ -55,7 +55,9 @@
 		(wrap-api headers get-components))
 
 	(compcore/GET "/api/tickets/:id" {params :params headers :headers}
-		(wrap-api headers get-ticket (get-id params)))
+		(try 
+			(wrap-api headers get-ticket (get-id params))
+			(catch Exception e (jsonify {:error (.getMessage e) } ))))
 
 	(compcore/GET "/api/tickets/:id/raw" {params :params headers :headers}
 		(wrap-api headers get-ticket (get-id params)))

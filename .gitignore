@@ -11,3 +11,5 @@ keystore
 .DS_Store
 *.o
 .module-cache
+*.key
+*.csr
